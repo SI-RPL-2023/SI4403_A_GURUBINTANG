@@ -54,7 +54,50 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   });
+
+  const course = [
+    {
+       Name: 'Bahasa Indonesia',
+       Level: 'SD',
+       Mentor: 'Annisa Miswanda',
+       TotalClasses: 3
+    },
+    {
+        Name: 'Matematika',
+        Level: 'SMA',
+        Mentor: 'Usein Akbar',
+        TotalClasses: 5
+    },
+    {
+        Name: 'Sains',
+        Level: 'SMP',
+        Mentor: 'Ammirahma Hamida',
+        TotalClasses: 4
+    },
+  ];
   
+  app.get('/course', (req, res) => {
+    res.json(course);
+  });
+
+  const mentor = [
+    {
+       MentorName: 'Annisa Miswanda',
+       LastEdu: 'S2 Bahasa Inggris'
+    },
+    {
+        MentorName: 'Ammirahma Hamida',
+        LastEdu: 'S2 Bioteknologi'
+    },
+    {
+        MentorName: 'Usein Akbar',
+        LastEdu: 'S2 Matematika'
+    }
+  ];
+  
+  app.get('/mentor', (req, res) => {
+    res.json(mentor);
+  });
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
