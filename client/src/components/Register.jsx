@@ -32,25 +32,25 @@ const Register = () => {
     const handleRegis = e => {
         e.preventDefault()
 
-        fetch('https://rangkoom.com/gurubintang/api/v1/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json',  'Accept': 'application/json' },
-                body: JSON.stringify({
-                    username: username,
-                    email: email,
-                    password: password,
-                })
-            }).then(function(response) {
-                return response.json();
-            }).then(function(data) {
-                const {tokens, user} = data
-                const {access: {token: token_access}, refresh: {token: token_refresh}} = tokens
-                localStorage.setItem('token_access', token_access);
-                localStorage.setItem('token_refresh', token_refresh);
-                localStorage.setItem('user_info', JSON.stringify(user));
-                navigate('/')
-                window.location.reload()
-            });
+        // fetch('https://rangkoom.com/gurubintang/api/v1/auth/register', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json',  'Accept': 'application/json' },
+        //         body: JSON.stringify({
+        //             username: username,
+        //             email: email,
+        //             password: password,
+        //         })
+        //     }).then(function(response) {
+        //         return response.json();
+        //     }).then(function(data) {
+        //         const {tokens, user} = data
+        //         const {access: {token: token_access}, refresh: {token: token_refresh}} = tokens
+        //         localStorage.setItem('token_access', token_access);
+        //         localStorage.setItem('token_refresh', token_refresh);
+        //         localStorage.setItem('user_info', JSON.stringify(user));
+        //         navigate('/')
+        //         window.location.reload()
+        //     });
     }
 
     return (
