@@ -203,8 +203,6 @@ const listTestimoni = [
 ]
 
 const listReview = [
-    new Review('CEO Upbanx', 'Alya Nurhidayat'),
-    new Review('CEO Upbanx', 'Alya Nurhidayat'),
     new Review('CEO Upbanx', 'Alya Nurhidayat')
 ]
 

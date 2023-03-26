@@ -28,7 +28,7 @@ const Card = ({listKelas, className}) => {
                                 <h3 className="card__price-stroke">{harga_coret}</h3>
                                 <h2 className="card__price-real">{harga_asli}</h2>
                             </div>
-                            <a href={`/detail-kelas/${title}`} className="card__cta">Lihat Detail</a>
+                            <a href={`/kelas/${title}`} className="card__cta">Lihat Detail</a>
                         </div>
                     </div>
                 )
