@@ -22,17 +22,14 @@ import Loader from "./components/Loader";
 const App = () => {
   const [isLoad, setLoad] = useState(true)
 
-  document.addEventListener('readystatechange', () => {
-    if(document.readyState !== 'complete') {
-      setLoad(!isLoad)
-      document.body.classList.toggle('fixBody')
-    } else {
-        setTimeout(() => {
-          setLoad(!isLoad)
-          document.body.classList.toggle('fixBody')
-        }, 800)
-    }
-  })
+  useEffect(() => {
+    document.body.classList.add('fixBody')
+
+    setTimeout(() => {
+      setLoad(false)
+      document.body.classList.remove('fixBody')
+    }, 700);
+  }, [])
 
   return (
     <Router>
