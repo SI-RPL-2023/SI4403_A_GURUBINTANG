@@ -45,6 +45,18 @@ app.get("/course", (req, res)=>{
     }
 })
 
+app.get("/mentor", (req, res)=>{
+  try {
+    mentorCollection.find().then(data => {
+      res.json({
+        data
+      })
+    })
+  } catch (error) {
+    // catch error
+  }
+})
+
 app.post("/signup", async (req, res) => {
     const data = {
       username: req.body.username,
@@ -95,6 +107,22 @@ app.post("/signup", async (req, res) => {
       const result = await CourseCollection.insertMany(data);
       console.log(result);
       res.json({ success: true, message: "insert class successful", id: data._id });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+  });
+
+  app.post("/addMentor", async (req, res) => {
+    const data = {
+      namaMentor: req.body.namaMentor,
+      jabatanMentor: req.body.jabatanMentor,
+    };
+  
+    try {
+      const result = await mentorCollection.insertMany(data);
+      console.log(result);
+      res.json({ success: true, message: "add mentor successful", id: data._id});
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, message: "Internal Server Error" });
