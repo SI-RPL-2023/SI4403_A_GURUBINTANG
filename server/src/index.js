@@ -71,7 +71,7 @@ app.post("/signup", async (req, res) => {
       }
   
       if (data.password === req.body.password) {
-        res.json({ success: true, message: "Login successful" });
+        res.json({ success: true, message: "Login successful", id: data._id, name: data.name});
       } else {
         res.status(401).json({ success: false, message: "Invalid username or password" });
       }
@@ -91,30 +91,12 @@ app.post("/signup", async (req, res) => {
     };
   
     try {
-      CourseCollection.find().then(function(data) {
-        res.json({
-          data
-        })
-      })
+      const result = await CourseCollection.insertMany(data);
+      console.log(result);
+      res.json({ success: true, message: "insert class successful", id: data._id });
     } catch (error) {
       console.error(error);
-    }
-  });
-
-  app.post("/addMentor", async (req, res) => {
-    const data = {
-      namaMentor: req.body.namaMentor,
-      jabatanMentor: req.body.jabatanMentor,
-    };
-  
-    try {
-      mentorCollection.find().then(function(data) {
-        res.json({
-          data
-        })
-      })
-    } catch (error) {
-      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   });
 

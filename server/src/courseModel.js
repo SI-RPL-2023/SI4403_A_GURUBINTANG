@@ -29,7 +29,7 @@ const CourseSchema = new mongoose.Schema({
         type:String,
         require:true
     }
-});
+})
 
 const CourseCollection=new mongoose.model('courseCollection', CourseSchema)
 
