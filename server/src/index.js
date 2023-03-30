@@ -47,7 +47,8 @@ app.get("/course", (req, res)=>{
 
 app.post("/signup", async (req, res) => {
     const data = {
-      name: req.body.name,
+      username: req.body.username,
+      email: req.body.email,
       password: req.body.password,
     };
   

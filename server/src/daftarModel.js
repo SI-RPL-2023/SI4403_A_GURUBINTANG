@@ -9,7 +9,11 @@ mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 })
 
 const logInSchema=new mongoose.Schema({
-    name:{
+    username:{
+        type:String,
+        required:true
+    },
+    email:{
         type:String,
         required:true
     },
