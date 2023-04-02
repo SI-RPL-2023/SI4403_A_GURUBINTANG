@@ -4,13 +4,14 @@ import Form from "./UI/Form";
 import google from '../asset/icon/google.svg';
 import eye from '../asset/icon/eye.svg';
 import eyeSlash from '../asset/icon/eye-slash.svg';
+import { register } from "../controller/register";
 
 const Register = () => {
     let navigate = useNavigate();
-    const [regisValue, setRegisValue] = useState({username: '', email: '', password: '', validasiPassword: ''})
+    const [regisValue, setRegisValue] = useState({username: '', email: '', password: ''})
     const [isHidePass, setHidePass] = useState(true)
     const [isHideValidatePass, setHideValidatePass] = useState(true)
-    const {username, email, password, validasiPassword} = regisValue
+    const {username, email, password} = regisValue
 
     const handleChange = e => {
         setRegisValue(preValue => {
@@ -29,28 +30,11 @@ const Register = () => {
         setHideValidatePass(!isHideValidatePass)
     }
 
-    const handleRegis = e => {
+    const handleRegis = async (e) => {
         e.preventDefault()
 
-        // fetch('https://rangkoom.com/gurubintang/api/v1/auth/register', {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json',  'Accept': 'application/json' },
-        //         body: JSON.stringify({
-        //             username: username,
-        //             email: email,
-        //             password: password,
-        //         })
-        //     }).then(function(response) {
-        //         return response.json();
-        //     }).then(function(data) {
-        //         const {tokens, user} = data
-        //         const {access: {token: token_access}, refresh: {token: token_refresh}} = tokens
-        //         localStorage.setItem('token_access', token_access);
-        //         localStorage.setItem('token_refresh', token_refresh);
-        //         localStorage.setItem('user_info', JSON.stringify(user));
-        //         navigate('/')
-        //         window.location.reload()
-        //     });
+        const msg = await register(regisValue) 
+        console.log(msg)
     }
 
     return (
@@ -76,13 +60,13 @@ const Register = () => {
                             {isHidePass ? <img src={eyeSlash} alt="" /> : <img src={eye} alt="" />}
                         </div>
                     </div>
-                    <div className="input-group">
+                    {/* <div className="input-group">
                         <label htmlFor="">Tulis Ulang Password</label>
                         <input type={`${isHideValidatePass ? 'password' : 'text'}`} name="validasiPassword" id="validasiPassword" value={validasiPassword} onChange={handleChange} placeholder="Tulis ulang password kamu disini ..." autoComplete='off' />
                         <div className="eye-box"onClick={handleHideValidatePass}>
                             {isHideValidatePass ? <img src={eyeSlash} alt="" /> : <img src={eye} alt="" />}
                         </div>
-                    </div>
+                    </div> */}
 
                     <button type="submit" className="register__cta form-cta">Sign Up</button>
                     <div className="register__alternatif form-alternatif">

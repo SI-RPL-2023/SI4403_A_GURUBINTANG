@@ -4,6 +4,7 @@ import Form from "./UI/Form";
 import google from '../asset/icon/google.svg';
 import eye from '../asset/icon/eye.svg';
 import eyeSlash from '../asset/icon/eye-slash.svg';
+import { login } from "../controller/login";
 
 const Login = () => {
     let navigate = useNavigate();
@@ -24,27 +25,12 @@ const Login = () => {
         setHidePass(!isHidePass)
     }
 
-    const handleLogin = e => {
+    const handleLogin = async (e) => {
         e.preventDefault()
 
-        // fetch('https://rangkoom.com/gurubintang/api/v1/auth/login', {
-        //         method: 'POST',
-        //         headers: { 'Content-Type': 'application/json',  'Accept': 'application/json' },
-        //         body: JSON.stringify({
-        //             email: email,
-        //             password: password,
-        //         })
-        //     }).then(function(response) {
-        //         return response.json();
-        //     }).then(function(data) {
-        //         const {tokens, user} = data
-        //         const {access: {token: token_access}, refresh: {token: token_refresh}} = tokens
-        //         localStorage.setItem('token_access', token_access);
-        //         localStorage.setItem('token_refresh', token_refresh);
-        //         localStorage.setItem('user_info', JSON.stringify(user));
-        //         navigate('/')
-        //         window.location.reload()
-        //     });
+        const msg = await login(loginValue) 
+        console.log(msg)
+
     }
 
     return (
@@ -54,7 +40,7 @@ const Login = () => {
                 <p className="form-redirect">Belum punya akun? <a href="/register">Sign Up</a></p>
             </div>
             <div className="form-box">
-                <form action="" className="login__form form"  onSubmit={handleLogin}>
+                <form action="" className="login__form form" onSubmit={handleLogin}>
                     <div className="input-group">
                         <label htmlFor="">Email</label>
                         <input type="email" name="email" id="username" value={email} onChange={handleChange} placeholder="Tulis email kamu disini ..." required autoComplete='off' autoFocus='on' />
