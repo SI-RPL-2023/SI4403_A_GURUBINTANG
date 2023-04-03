@@ -78,7 +78,7 @@ app.post("/signup", async (req, res) => {
   
   app.post("/login", async (req, res) => {
     try {
-      const data = await signupCollection.findOne({ name: req.body.name });
+      const data = await signupCollection.findOne({ email: req.body.email });
   
       if (!data) {
         res.status(401).json({ success: false, message: "Invalid username or password" });
@@ -86,7 +86,7 @@ app.post("/signup", async (req, res) => {
       }
   
       if (data.password === req.body.password) {
-        res.json({ success: true, message: "Login successful", id: data._id, name: data.username});
+        res.json({ success: true, message: "Login successful", id: data._id, username: data.username});
       } else {
         res.status(401).json({ success: false, message: "Invalid username or password" });
       }
