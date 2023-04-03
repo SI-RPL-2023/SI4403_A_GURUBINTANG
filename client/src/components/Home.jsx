@@ -30,7 +30,7 @@ const Home = ({access_token}) => {
                     <h1 className="banner__title">Tingkatkan Keahlian, untuk Menjadi Guru Bintang
                         <img src={path} alt="" />
                     </h1>
-                    <p className="banner__subtitle">Belajar bersama kami, riset dan karya ilmiah tidak lagi terasa susah.  Kami membangun Ekosistem Keilmiahan & Penelitian untuk Mencetak Inovator Muda Indonesia dengan pembelajaran secara daring.</p>
+                    <p className="banner__subtitle">Belajar bersama kami, riset dan sertifikasi tidak lagi terasa susah.  Kami membangun Ekosistem Pembelajaran untuk Mencetak Guru Bintang Berkompetensi dengan pembelajaran secara daring.</p>
                     <a href="#kelas-populer" className="banner__cta">Mulai Belajar Sekarang</a>
                 </div>
                 <div className="banner__image-box">

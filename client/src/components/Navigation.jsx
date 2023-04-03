@@ -5,9 +5,7 @@ import logo from '../asset/images/logo.png';
 import avatar from '../asset/images/avatar.png';
 import arrow from '../asset/icon/arrow.svg';
 
-const Navigation = () => {
-    let token = localStorage.getItem('token_access')
-    const user = JSON.parse(localStorage.getItem('user_info'))
+const Navigation = ({cookies, removeCookie}) => {
     const [isClicked, setClicked] = useState(false)
 
     const handleOptionNav = () => {
@@ -33,17 +31,18 @@ const Navigation = () => {
                     </li> */}
                 </ul>
             </div>
-            {!token && 
+            {cookies.id ?
+            <div className={`nav__user ${isClicked && 'nav__user-clicked'}`} onClick={handleOptionNav}>
+                <img src={avatar} alt="" className='nav__user-avatar' />
+                <h1 className="nav__user-name">{cookies.username}</h1>
+                <img src={arrow} alt="" className={`nav__user-arrow ${isClicked && 'arrow-clicked'}`} />
+                <UserOption isClicked={isClicked} removeCookie={removeCookie} />
+            </div> :
             <div className="nav__box-right">
                 <a href="/register" className="nav__register">Sign Up</a>
                 <a href="/login" className="nav__login">Login</a>
-            </div>}
-            {token && <div className={`nav__user ${isClicked && 'nav__user-clicked'}`} onClick={handleOptionNav}>
-                <img src={avatar} alt="" className='nav__user-avatar' />
-                <h1 className="nav__user-name">{user.username}</h1>
-                <img src={arrow} alt="" className={`nav__user-arrow ${isClicked && 'arrow-clicked'}`} />
-                <UserOption isClicked={isClicked} />
-            </div>}
+            </div>  
+            }
         </nav>
     )
 }

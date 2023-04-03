@@ -29,7 +29,7 @@ const Testimoni = () => {
                                     </div>
                                 </div>
                                 <div className="testimoni__stars">
-                                    {stars.map(item => <img src={item} />)}
+                                    {stars.map((item, i) => <img src={item} key={i} />)}
                                 </div>
                             </div>
                         </div>

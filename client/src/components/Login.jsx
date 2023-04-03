@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Form from "./UI/Form";
-import google from '../asset/icon/google.svg';
 import eye from '../asset/icon/eye.svg';
 import eyeSlash from '../asset/icon/eye-slash.svg';
 import { login } from "../controller/login";
+import LoaderCTA from "./LoaderCTA";
 
-const Login = () => {
+const Login = ({cookies, setCookie}) => {
     let navigate = useNavigate();
+    const [isLoad, setLoad] = useState(false)
     const [loginValue, setLoginValue] = useState({email: '', password: ''})
     const [isHidePass, setHidePass] = useState(true)
     const {email, password} = loginValue
@@ -28,8 +30,16 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault()
 
-        const msg = await login(loginValue) 
-        console.log(msg)
+        setLoad(true)
+        const {id, username, message} = await login(loginValue) 
+        
+        setTimeout(() => {
+            setCookie('id', id, { path: '/' })
+            setCookie('username', username, { path: '/' })
+            toast.success(message)
+            navigate('/')
+            setLoad(false)
+        }, 1500)
 
     }
 
@@ -53,7 +63,9 @@ const Login = () => {
                         </div>
                         <a href="#" className="forgot-password">Lupa password?</a>
                     </div>
-                    <button type="submit" className="form-cta">Login</button>
+                    <button type="submit" className="form-cta">
+                        {isLoad ? <LoaderCTA /> : 'Login'}
+                    </button>
                     <div className="form-alternatif">
                         <div></div>
                         <p>atau</p>
