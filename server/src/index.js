@@ -3,11 +3,13 @@ const app = express();
 const path = require("path");
 const hbs = require("hbs");
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const signupCollection = require("./daftarModel");
 const mentorCollection = require("./mentorModel");
 const CourseCollection = require("./courseModel");
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const templatePath = path.join(__dirname, "../templates");
@@ -84,7 +86,7 @@ app.post("/signup", async (req, res) => {
       }
   
       if (data.password === req.body.password) {
-        res.json({ success: true, message: "Login successful", id: data._id, name: data.name});
+        res.json({ success: true, message: "Login successful", id: data._id, name: data.username});
       } else {
         res.status(401).json({ success: false, message: "Invalid username or password" });
       }
