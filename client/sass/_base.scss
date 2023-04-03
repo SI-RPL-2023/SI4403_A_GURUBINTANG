@@ -55,6 +55,24 @@ body {
   overflow: hidden;
 }
 
+.Toastify {
+  position: fixed;
+  top: 3rem;
+  right: 3rem;
+  font-size: 1.6rem;
+  z-index: 10;
+  
+  &__toast {
+    background-color: #1D2E6C !important;
+  }
+}
+
+.Toastify__toast-body {
+  color: #fff;
+  font-family: $font-primary;
+  font-weight: 600;
+}
+
 .kelas-suggestion {
     display: grid;
     grid-template-columns: 1fr;

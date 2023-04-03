@@ -1,29 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import dashboard from '../asset/icon/dashboard.svg';
 import note from '../asset/icon/note.svg';
 import receipt from '../asset/icon/receipt.svg';
 import setting from '../asset/icon/setting.svg';
 import logout from '../asset/icon/logout.svg';
 
-const UserOption = ({isClicked}) => {
+const UserOption = ({isClicked, removeCookie}) => {
      let navigate = useNavigate();
-     const refresh_token = localStorage.getItem('token_refresh')
 
      const handleLogout = () => {
-          fetch('https://rangkoom.com/gurubintang/api/v1/auth/logout', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': `Bearer ${refresh_token}`}
-            }).then(function(response) {
-                return response.json();
-            }).then(function(data) {
-                 console.log(data);
-                localStorage.removeItem('token_access');
-                localStorage.removeItem('token_refresh');
-                localStorage.removeItem('user_info');
-                navigate('/')
-                window.location.reload()
-            });
+          removeCookie('id', {path:'/'})
+          removeCookie('username', {path:'/'})
+          toast.success('Logout successful')
+          navigate('/')
      }
 
     return (

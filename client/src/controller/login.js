@@ -8,7 +8,7 @@ const login = (data) => {
             return response.json()
         })
         .then(res => {
-            return res.msg
+            return res
         })
 }
 

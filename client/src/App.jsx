@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { useCookies } from 'react-cookie';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import Kelas from "./components/Kelas";
@@ -20,6 +24,7 @@ import LoginMentor from "./components/LoginMentor";
 import Loader from "./components/Loader";
 
 const App = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['id', 'username']);
   const [isLoad, setLoad] = useState(true)
 
   useEffect(() => {
@@ -34,12 +39,25 @@ const App = () => {
   return (
     <Router>
       {isLoad ? <Loader /> : <div className="App">
-        <Navigation />
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        
+        <Navigation cookies={cookies} removeCookie={removeCookie} />
         <Routes>
-          <Route index element={<Home />} exact />
+          <Route path="/" element={<Home />} exact />
           <Route path='register' element={<Register />} />
           <Route path='register-mentor' element={<RegisterMentor />} />
-          <Route path='login' element={<Login />} />
+          <Route path='login' element={cookies.id ? <Navigate to='/' /> : <Login cookies={cookies} setCookie={setCookie} />} />
           <Route path='login-mentor' element={<LoginMentor />} />
           <Route path='kelas' element={<Kelas />} />
           <Route path='kelas/:judul' element={<DetailKelas />} />
