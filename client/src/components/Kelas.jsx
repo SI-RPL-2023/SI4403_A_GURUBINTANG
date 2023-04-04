@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import Card from "./Card";
 import Footer from "./Footer";
 import { listKelas } from "../data";
-import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { getCourse } from "../controller/getCourse";
 
 const Kelas = () => {
     const [isLoad, setLoad] = useState(true)
     const [course, setCourse] = useState([])
-    const listKelasBaru = [...listKelas]
+    // const listKelasBaru = [...listKelas]
 
     const getAllCourse = async () => {
         const data = await getCourse()
