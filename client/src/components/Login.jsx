@@ -7,7 +7,7 @@ import { login } from "../controller/login";
 import { toast } from "react-toastify";
 import LoaderCTA from "./LoaderCTA";
 
-const Login = ({cookies, setCookie}) => {
+const Login = ({setCookie}) => {
     let navigate = useNavigate();
     const [isLoad, setLoad] = useState(false)
     const [loginValue, setLoginValue] = useState({email: '', password: ''})
