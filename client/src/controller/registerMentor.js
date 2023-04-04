@@ -1,5 +1,5 @@
-const login = (data) => {
-    return fetch(`http://localhost:3000/login`, {
+const registerMentor = (data) => {
+    return fetch(`http://localhost:3000/signup/mentor`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -8,12 +8,8 @@ const login = (data) => {
             return response.json()
         })
         .then(res => {
-            if(!res.success) {
-                throw new Error(res.message)
-            } else {
-                return res
-            }
+            return res.message
         })
 }
 
-export {login}
+export {registerMentor}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
 import person from '../asset/images/person.png';
 import rectangle1 from '../asset/images/rectangle1.png';
@@ -9,19 +9,19 @@ import { perks, listKelas } from "../data";
 import Card from "./Card";
 import Testimoni from "./Testimoni";
 import FAQ from "./FAQ";
+import { getCourse } from "../controller/getCourse";
 
-const Home = ({access_token}) => {
+const Home = () => {
+    const [course, setCourse] = useState([])
 
-    // useEffect(() => {
-    //     fetch('https://rangkoom.com/gurubintang/api/v1/classes', {
-    //             method: 'GET',
-    //             headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Authorization': `Bearer ${access_token}`}
-    //         }).then(function(response) {
-    //             return response.json();
-    //         }).then(function(data) {
-    //             console.log(data);
-    //         });
-    //   }, [])
+    const getAllCourse = async () => {
+        const data = await getCourse()
+        setCourse(data)
+    }
+
+    useEffect(() => {
+        getAllCourse()
+    }, [])
 
     return (
         <main className="home">
@@ -58,7 +58,7 @@ const Home = ({access_token}) => {
                         <p className="kelas__desc">Akses materi yang berupa Modul, Video Pembelajaran, Quiz, Pre-Test, dan Post Test yang lengkap dalam satu platform. Pelajari sekarang di kelas online Guru Bintang.</p>
                         <a href="/kelas" className="kelas__cta">Lihat Kelas Lainnya</a>
                     </div>
-                    <Card listKelas={listKelas} />
+                    <Card listKelas={course} />
                 </div>
                 <div className="trust">
                     <h1 className="trust__title">Dipercaya untuk Menjadi Platform Belajar Bagi Calon Pengajar Terbaik</h1>

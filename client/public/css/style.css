@@ -227,6 +227,18 @@ body {
   font-size: 1.6rem;
   font-weight: 600;
   color: #5D5F60;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav__user-name hr {
+  opacity: 0.7;
+}
+.nav__user-name span {
+  font-size: 1.2rem;
+  font-style: italic;
+  font-weight: 400;
+  opacity: 0.7;
 }
 .nav__user-arrow {
   transition: 0.1s ease;
@@ -1106,7 +1118,7 @@ body {
 
 .card {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+  grid-template-columns: repeat(4, 26rem);
   grid-auto-rows: min-content;
   grid-gap: 2.5rem;
 }

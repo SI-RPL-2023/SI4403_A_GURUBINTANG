@@ -8,13 +8,12 @@ import { listFasilitas } from "../data";
 import ListMateri from "./ListMateri";
 import { useParams } from "react-router-dom";
 
-const FiturKelas = ({title, isPurchased, materi}) => {
-    const { judul } = useParams()
+const FiturKelas = ({id, title, tentangKelas, isPurchased, totalMateri, materi}) => {
 
     return (
         <div className="fiturKelas">
             <div className="fiturKelas__nav">
-                <h1 className="fiturKelas__nav-title">{judul}</h1>
+                <h1 className="fiturKelas__nav-title">{title}</h1>
                 <ul className="fiturKelas__nav-list">
                     <li><a href="#tentang-kelas" className="fiturKelas__nav-link">Tentang Kelas</a></li>
                     <li><a href="#fasilitas" className="fiturKelas__nav-link">Fasilitas</a></li>
@@ -22,17 +21,13 @@ const FiturKelas = ({title, isPurchased, materi}) => {
                     <li><a href="#mentor" className="fiturKelas__nav-link">Mentor</a></li>
                     <li><a href="#review" className="fiturKelas__nav-link">Review</a></li>
                 </ul>
-                <a href={`/checkout/${title}`} className="fiturKelas__nav-cta"><img src={bag} alt="" />Beli Kelas</a>
+                <a href={`/checkout/${id}`} className="fiturKelas__nav-cta"><img src={bag} alt="" />Beli Kelas</a>
             </div>
             <div className="fiturKelas__detail-box" id="tentang-kelas">
                 <div className="fiturKelas__detail">
                     <span className="fiturKelas__softTitle">Tentang Kelas</span>
-                    <h1 className="fiturKelas__title">{judul}</h1>
-                    <p className="fiturKelas__desc">
-                    Filosofis mengajar merupakan program yang memberikan penerapan nilai - nilai yang baik saat mengajar. Disini anda akan mendapatkan pembekalan yang bermanfaat seperti Growth Mindset, Pemanfaatan teknologi dalam mengajar, Seni Mengajar dsb.
-                    <br /><br />
-                    Setelah mengikuti program/kelas ini diharapkan anda bisa mendapatkan dankompetensi lebih ketika mengajar. Dalam kegiatan belajar mengajar anda akan termudahkan dengan pembelajaran dari kelas/program ini, anda akan terbiasa dengan pemanfaatan teknologi saat mengajar menerapkan nilai - nilai penting saat mengajar. Anda berkesempatan untuk menerapkan edukasi yang anda berikan dengan menjadi influencer edukasi.
-                    </p>
+                    <h1 className="fiturKelas__title">{title}</h1>
+                    <p className="fiturKelas__desc">{tentangKelas}</p>
                 </div>
                 <div className="fiturKelas__fasilitas" id="fasilitas">
                     <span className="fiturKelas__softTitle">Fasilitas</span>
@@ -55,7 +50,7 @@ const FiturKelas = ({title, isPurchased, materi}) => {
                         <div className="fiturKelas__materi-box">
                             <div className="fiturKelas__materi-heading">
                                 <h1>Materi Kelas</h1>
-                                <h2>{materi.length} Materi</h2>
+                                <h2>{totalMateri} Materi</h2>
                             </div>
                             <div className="fiturKelas__materi-detail">
                                 <ListMateri title={title} isPurchased={isPurchased} materi={materi} />

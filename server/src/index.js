@@ -138,11 +138,11 @@ app.post("/signup", async (req, res) => {
     const data = {
       namaKelas: req.body.namaKelas,
       tentangKelas: req.body.tentangKelas,
-      kategoriKelas: req.body.kategorisKelas,
+      kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
-      totalmateriKelas: req.body.totalmateriKelas,
-      hargacoretKelas:req.body.hargacoretKelas,
-      hargaasliKelas:req.body.hargaasliKelas,
+      totalMateriKelas: req.body.totalMateriKelas,
+      hargaCoretKelas:req.body.hargaCoretKelas,
+      hargaAsliKelas:req.body.hargaAsliKelas,
       mentorKelas: req.body.mentorKelas
     };
   
