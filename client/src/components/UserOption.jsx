@@ -8,7 +8,7 @@ import setting from '../asset/icon/setting.svg';
 import logout from '../asset/icon/logout.svg';
 
 const UserOption = ({isClicked, removeCookie}) => {
-     let navigate = useNavigate();
+     let navigate = useNavigate()
 
      const handleLogout = () => {
           removeCookie('id', {path:'/'})
