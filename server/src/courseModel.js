@@ -17,13 +17,25 @@ const CourseSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    fasilitasKelas:{
+    kategoriKelas:{
         type:String,
         required:true
     },
     materiKelas:{
         type:String,
         require:true
+    },
+    totalmateriKelas:{
+        type:Number,
+        required:true
+    },
+    hargacoretKelas:{
+        type:Number,
+        required:true
+    },
+    hargaasliKelas:{
+        type:Number,
+        required:true
     },
     mentorKelas:{
         type:String,
@@ -34,3 +46,4 @@ const CourseSchema = new mongoose.Schema({
 const CourseCollection=new mongoose.model('courseCollection', CourseSchema)
 
 module.exports=CourseCollection
+

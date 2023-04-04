@@ -64,17 +64,37 @@ app.post("/signup", async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
+      role: "user"
     };
   
     try {
       const result = await signupCollection.insertMany(data);
       console.log(result);
-      res.json({ success: true, message: "Signup successful" });
+      res.json({ success: true, message: "Signup successful", id: data._id, email: data.email, role: data.role });
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   });
+
+  app.post("/signup/mentor", async (req, res) => {
+    const data = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      role: "mentor"
+    };
+  
+    try {
+      const result = await signupCollection.insertMany(data);
+      console.log(result);
+      res.json({ success: true, message: "Signup successful", id: data._id, email: data.email, role: data.role});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+  });
+  
   
   app.post("/login", async (req, res) => {
     try {
@@ -85,8 +105,26 @@ app.post("/signup", async (req, res) => {
         return;
       }
   
-      if (data.password === req.body.password) {
-        res.json({ success: true, message: "Login successful", id: data._id, username: data.username});
+      if (data.password === req.body.password && data.role === "user") {
+        res.json({ success: true, message: "Login successful", id: data._id, username: data.username, role: data.role});
+      } else {
+        res.status(401).json({ success: false, message: "Invalid username or password" });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+  });
+  app.post("/login/mentor", async (req, res) => {
+    try {
+      const data = await signupCollection.findOne({ email: req.body.email });  
+      if (!data) {
+        res.status(401).json({ success: false, message: "Invalid username or password" });
+        return;
+      }
+  
+      if (data.password === req.body.password && data.role === "mentor") {
+        res.json({ success: true, message: "Login successful", id: data._id, username: data.username, role: data.role});
       } else {
         res.status(401).json({ success: false, message: "Invalid username or password" });
       }
@@ -100,8 +138,11 @@ app.post("/signup", async (req, res) => {
     const data = {
       namaKelas: req.body.namaKelas,
       tentangKelas: req.body.tentangKelas,
-      fasilitasKelas: req.body.fasilitasKelas,
+      kategoriKelas: req.body.kategorisKelas,
       materiKelas: req.body.materiKelas,
+      totalmateriKelas: req.body.totalmateriKelas,
+      hargacoretKelas:req.body.hargacoretKelas,
+      hargaasliKelas:req.body.hargaasliKelas,
       mentorKelas: req.body.mentorKelas
     };
   
