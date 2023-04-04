@@ -20,6 +20,11 @@ const logInSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    role:{
+        type:String,
+        enum:['mentor','user'],
+        required:true
     }
 })
 
