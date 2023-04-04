@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import Form from "./UI/Form";
 import eye from '../asset/icon/eye.svg';
 import eyeSlash from '../asset/icon/eye-slash.svg';
 import { login } from "../controller/login";
+import { toast } from "react-toastify";
 import LoaderCTA from "./LoaderCTA";
 
 const Login = ({cookies, setCookie}) => {
@@ -29,18 +29,23 @@ const Login = ({cookies, setCookie}) => {
 
     const handleLogin = async (e) => {
         e.preventDefault()
-
         setLoad(true)
-        const {id, username, message} = await login(loginValue) 
-        
-        setTimeout(() => {
-            setCookie('id', id, { path: '/' })
-            setCookie('username', username, { path: '/' })
-            toast.success(message)
-            navigate('/')
-            setLoad(false)
-        }, 1500)
 
+        try {
+            const {id, username, message} = await login(loginValue) 
+            
+            setTimeout(() => {
+                setCookie('id', id, { path: '/' })
+                setCookie('username', username, { path: '/' })
+                setCookie('role', 'user', { path: '/' })
+                toast.success(message)
+                navigate('/')
+                setLoad(false)
+            }, 1500)
+        } catch (error) {
+            toast.warning(error.message)
+            setLoad(false)
+        }  
     }
 
     return (
@@ -71,7 +76,7 @@ const Login = ({cookies, setCookie}) => {
                         <p>atau</p>
                         <div></div>
                     </div>
-                    <a href="/login-mentor" className="form-google-cta">
+                    <a href="/login/mentor" className="form-google-cta">
                         <span>Login as Mentor</span>
                     </a>
                 </form>

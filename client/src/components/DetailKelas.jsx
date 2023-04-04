@@ -10,16 +10,22 @@ import FiturKelas from "./FiturKelas";
 import Card from "./Card";
 import Footer from "./Footer";
 import { listKelas } from "../data";
+import { getCourse } from "../controller/getCourse";
 
 
 const DetailKelas = () => {
-    const { judul } = useParams()
-    const [selectedKelas, setSelectedKelas] = useState({banner: '', title: '', materi: [], isPurchased: '', harga_asli: '', harga_coret: '', desc: '', total_materi: '', kategori: ''})
-    const {banner, title, materi, isPurchased, harga_asli, harga_coret, desc, total_materi, kategori} = selectedKelas
+    const { id } = useParams()
+    const [selectedKelas, setSelectedKelas] = useState({_id: '', namaKelas: '', tentangKelas: '', kategoriKelas: '', materiKelas: '', totalMateriKelas: '', hargaCoretKelas: '', hargaAsliKelas: '', mentorKelas: ''})
+    const {namaKelas, tentangKelas, kategoriKelas, materiKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas, mentorKelas} = selectedKelas
+
+    const getSpesificCourse = async () => {
+        const data = await getCourse()
+        const kelas = data.find(item => item._id === id)
+        setSelectedKelas(kelas)
+    }
 
     useEffect(() => {
-        const searchKelas = listKelas.find(item => item.title === judul)
-        setSelectedKelas(searchKelas)
+        getSpesificCourse()
     }, [])
 
     return (
@@ -28,30 +34,30 @@ const DetailKelas = () => {
                 <div className="detailKelas__banner">
                     <div className="detailKelas__banner-desc">
                         <div className="diskon">
-                        {harga_asli !== 'GRATIS' && <img src={diskon} alt="" />}
-                        {harga_asli === 'GRATIS' ? 'Kelas Gratis' : 'Diskon 40%'}
+                        {hargaAsliKelas !== 0 && <img src={diskon} alt="" />}
+                        {hargaAsliKelas === 0 ? 'Kelas Gratis' : 'Diskon 40%'}
                         </div>
-                        <h1 className="detailKelas__title">{title}</h1>
+                        <h1 className="detailKelas__title">{namaKelas}</h1>
                         <div className="detailKelas__spesifikasi">
-                            <div><img src={bookKategori} alt="" />{total_materi}</div>
-                            <div><img src={bookmark} alt="" />{kategori}</div>
+                            <div><img src={bookKategori} alt="" />{totalMateriKelas}</div>
+                            <div><img src={bookmark} alt="" />{kategoriKelas}</div>
                         </div>
                         <div className="detailKelas__price">
-                            <h3>{harga_coret}</h3>
-                            <h2>{harga_asli}</h2>
+                            <h3>Rp{hargaCoretKelas}</h3>
+                            <h2>{hargaAsliKelas === 0 ? 'Gratis' : `Rp${hargaAsliKelas}`}</h2>
                         </div>
-                        <a href={`/checkout/${title}`} className="detailKelas__cta"><img src={bag} alt="" />Beli Kelas</a>
+                        <a href={`/checkout/${id}`} className="detailKelas__cta"><img src={bag} alt="" />Beli Kelas</a>
                     </div>
                     <div className="detailKelas__image-box">
                         <div className="detailKelas__rectangle"></div>
                         <img src={titikBanner} alt="" className="detailKelas__titik" />
-                        <img src={banner} alt="" className="detailKelas__kelas-image" />
+                        <img src={detailbanner} alt="" className="detailKelas__kelas-image" />
                     </div>
                 </div>
-                <FiturKelas title={title} isPurchased={isPurchased} materi={materi} />
+                <FiturKelas id={id} title={namaKelas} isPurchased={false} materi={materiKelas} totalMateri={totalMateriKelas} tentangKelas={tentangKelas} />
                 <div className="detailKelas__cardBox kelas-suggestion">
                     <h1>Kamu Mungkin Akan Suka</h1>
-                    <Card listKelas={listKelas} />
+                    {/* <Card listKelas={listKelas} /> */}
                 </div>
             </div>
             <Footer />

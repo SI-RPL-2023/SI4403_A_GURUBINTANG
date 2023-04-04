@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "./UI/Form";
-import google from '../asset/icon/google.svg';
 import eye from '../asset/icon/eye.svg';
 import eyeSlash from '../asset/icon/eye-slash.svg';
 import { register } from "../controller/register";
+import { toast } from "react-toastify";
+import LoaderCTA from "./LoaderCTA";
 
 const Register = () => {
     let navigate = useNavigate();
+    const [isLoad, setLoad] = useState(false)
     const [regisValue, setRegisValue] = useState({username: '', email: '', password: ''})
     const [isHidePass, setHidePass] = useState(true)
     const [isHideValidatePass, setHideValidatePass] = useState(true)
@@ -32,9 +34,14 @@ const Register = () => {
 
     const handleRegis = async (e) => {
         e.preventDefault()
+        setLoad(true)
 
-        const msg = await register(regisValue) 
-        console.log(msg)
+        const message = await register(regisValue) 
+        setTimeout(() => {
+                toast.success(message)
+                navigate('/login')
+                setLoad(false)
+            }, 1500)
     }
 
     return (
@@ -68,13 +75,15 @@ const Register = () => {
                         </div>
                     </div> */}
 
-                    <button type="submit" className="register__cta form-cta">Sign Up</button>
+                    <button type="submit" className="register__cta form-cta">
+                        {isLoad ? <LoaderCTA /> : 'Sign Up'}
+                    </button>
                     <div className="register__alternatif form-alternatif">
                         <div></div>
                         <p>atau</p>
                         <div></div>
                     </div>
-                    <a href="/register-mentor" className="register__google form-google-cta">
+                    <a href="/register/mentor" className="register__google form-google-cta">
                         <span>Sign Up as Mentor</span>
                     </a>
                 </form>

@@ -34,7 +34,11 @@ const Navigation = ({cookies, removeCookie}) => {
             {cookies.id ?
             <div className={`nav__user ${isClicked && 'nav__user-clicked'}`} onClick={handleOptionNav}>
                 <img src={avatar} alt="" className='nav__user-avatar' />
-                <h1 className="nav__user-name">{cookies.username}</h1>
+                <h1 className="nav__user-name">
+                    {cookies.username}
+                    <hr />
+                    <span>{cookies.role}</span>
+                </h1>
                 <img src={arrow} alt="" className={`nav__user-arrow ${isClicked && 'arrow-clicked'}`} />
                 <UserOption isClicked={isClicked} removeCookie={removeCookie} />
             </div> :

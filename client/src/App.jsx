@@ -24,7 +24,7 @@ import LoginMentor from "./components/LoginMentor";
 import Loader from "./components/Loader";
 
 const App = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(['id', 'username']);
+  const [cookies, setCookie, removeCookie] = useCookies(['id', 'username', 'role']);
   const [isLoad, setLoad] = useState(true)
 
   useEffect(() => {
@@ -55,12 +55,18 @@ const App = () => {
         <Navigation cookies={cookies} removeCookie={removeCookie} />
         <Routes>
           <Route path="/" element={<Home />} exact />
-          <Route path='register' element={<Register />} />
-          <Route path='register-mentor' element={<RegisterMentor />} />
-          <Route path='login' element={cookies.id ? <Navigate to='/' /> : <Login cookies={cookies} setCookie={setCookie} />} />
-          <Route path='login-mentor' element={<LoginMentor />} />
-          <Route path='kelas' element={<Kelas />} />
-          <Route path='kelas/:judul' element={<DetailKelas />} />
+          <Route path='register' >
+            <Route index element={cookies.id ? <Navigate to='/' /> : <Register cookies={cookies} setCookie={setCookie} />} />
+            <Route path="mentor" element={cookies.id ? <Navigate to='/' /> : <RegisterMentor cookies={cookies} setCookie={setCookie} />} />
+          </Route>
+          <Route path='login' >
+            <Route index element={cookies.id ? <Navigate to='/' /> : <Login cookies={cookies} setCookie={setCookie} />} />
+            <Route path="mentor" element={cookies.id ? <Navigate to='/' /> : <LoginMentor cookies={cookies} setCookie={setCookie} />} />
+          </Route>
+          <Route path='kelas' >
+            <Route index element={<Kelas />} />
+            <Route path=':id' element={<DetailKelas />} />
+          </Route>
           {/* <Route path='dashboard' element={accessToken ? <Dashboard /> : <Login />} /> */}
           {/* <Route path='dashboard' >
             <Route path='kelas-saya' element={accessToken ? <SemuaKelasUser /> : <Login />} />
