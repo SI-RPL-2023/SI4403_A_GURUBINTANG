@@ -9,18 +9,19 @@ import detailbanner from '../asset/images/detailbanner.png';
 import FiturKelas from "./FiturKelas";
 import Card from "./Card";
 import Footer from "./Footer";
-import { listKelas } from "../data";
 import { getCourse } from "../controller/getCourse";
 
 
 const DetailKelas = () => {
     const { id } = useParams()
+    const [course, setCourse] = useState([])
     const [selectedKelas, setSelectedKelas] = useState({_id: '', namaKelas: '', tentangKelas: '', kategoriKelas: '', materiKelas: '', totalMateriKelas: '', hargaCoretKelas: '', hargaAsliKelas: '', mentorKelas: ''})
     const {namaKelas, tentangKelas, kategoriKelas, materiKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas, mentorKelas} = selectedKelas
 
     const getSpesificCourse = async () => {
         const data = await getCourse()
         const kelas = data.find(item => item._id === id)
+        setCourse(data)
         setSelectedKelas(kelas)
     }
 
@@ -57,7 +58,7 @@ const DetailKelas = () => {
                 <FiturKelas id={id} title={namaKelas} isPurchased={false} materi={materiKelas} totalMateri={totalMateriKelas} tentangKelas={tentangKelas} />
                 <div className="detailKelas__cardBox kelas-suggestion">
                     <h1>Kamu Mungkin Akan Suka</h1>
-                    {/* <Card listKelas={listKelas} /> */}
+                    <Card listKelas={course.slice(0,4)} />
                 </div>
             </div>
             <Footer />
