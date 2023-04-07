@@ -21,14 +21,6 @@ const Navigation = ({cookies, removeCookie}) => {
                     <li className="nav__item"><NavLink to='/kelas' activeClassName="active" className="nav__link" >Katalog Kelas</NavLink></li>
                     <li className="nav__item"><NavLink to='/mentor' activeClassName="active" className="nav__link" >Our Mentors</NavLink></li>
                     <li className="nav__item"><NavLink to='/tentang' activeClassName="active" className="nav__link" >Tentang</NavLink></li>
-                    {/* <li className="nav__item">
-                        <span className={`nav__option ${isClicked && 'clicked'}`} onClick={handleOption}>
-                            Tentang 
-                            <svg className={`arrow ${isClicked && 'rotate'}`}>
-                                <use xlinkHref={`${icon}#icon-arrow`}></use>
-                            </svg>
-                        </span>
-                    </li> */}
                 </ul>
             </div>
             {cookies.id ?
