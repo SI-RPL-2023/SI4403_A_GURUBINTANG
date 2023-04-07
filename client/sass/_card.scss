@@ -3,6 +3,7 @@
     grid-template-columns: repeat(4, 25rem);
     grid-auto-rows: min-content;
     grid-gap: 2.5rem;
+    justify-content: center;
 
     &__item {
         display: grid;

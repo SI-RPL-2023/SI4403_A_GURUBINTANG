@@ -17,7 +17,6 @@ const Kelas = () => {
 
     useEffect(() => {
         getAllCourse()
-        setLoad(false)
     }, [])
 
     return (
