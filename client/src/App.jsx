@@ -22,6 +22,7 @@ import LoginMentor from "./components/LoginMentor";
 // import SuccessPayment from "./components/SuccessPayment";
 // import Materi from "./components/Materi";
 import Loader from "./components/Loader";
+import Mentor from "./components/Mentor";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'username', 'role']);
@@ -66,6 +67,10 @@ const App = () => {
           <Route path='kelas' >
             <Route index element={<Kelas />} />
             <Route path=':id' element={<DetailKelas />} />
+          </Route>
+          <Route path='mentor' >
+            <Route index element={<Mentor />} />
+            {/* <Route path=':id' element={<DetailKelas />} /> */}
           </Route>
           {/* <Route path='dashboard' element={accessToken ? <Dashboard /> : <Login />} /> */}
           {/* <Route path='dashboard' >

@@ -159,7 +159,9 @@ app.post("/signup", async (req, res) => {
   app.post("/addMentor", async (req, res) => {
     const data = {
       namaMentor: req.body.namaMentor,
-      jabatanMentor: req.body.jabatanMentor,
+      descMentor: req.body.descMentor,
+      muridMentor: req.body.muridMentor,
+      keahlianMentor: req.body.keahlianMentor,
     };
   
     try {
