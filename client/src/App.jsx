@@ -23,6 +23,7 @@ import LoginMentor from "./components/LoginMentor";
 // import Materi from "./components/Materi";
 import Loader from "./components/Loader";
 import Mentor from "./components/Mentor";
+import EditKelas from "./components/EditKelas";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'username', 'role']);
@@ -71,6 +72,9 @@ const App = () => {
           <Route path='mentor' >
             <Route index element={<Mentor />} />
             {/* <Route path=':id' element={<DetailKelas />} /> */}
+          </Route>
+          <Route path='mentor' >
+            <Route path='kelas/edit/:id_kelas' element={<EditKelas />} />
           </Route>
           {/* <Route path='dashboard' element={accessToken ? <Dashboard /> : <Login />} /> */}
           {/* <Route path='dashboard' >

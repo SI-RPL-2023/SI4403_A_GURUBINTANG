@@ -385,7 +385,8 @@ body {
   font-size: 1.6rem;
   font-weight: 600;
 }
-.form .input-group input {
+.form .input-group input,
+.form .input-group textarea {
   border: 1.4px solid #E4E9EC;
   outline: none;
   padding: 1.5rem 2rem;
@@ -395,10 +396,12 @@ body {
   font-weight: 600;
   transition: 0.15s ease;
 }
-.form .input-group input:focus {
+.form .input-group input:focus,
+.form .input-group textarea:focus {
   border: 1.4px solid #4E74F9;
 }
-.form .input-group input::placeholder {
+.form .input-group input::placeholder,
+.form .input-group textarea::placeholder {
   color: #717375;
   font-size: 1.4rem;
   font-family: "Poppins", sans-serif;
@@ -1412,6 +1415,15 @@ body {
 }
 .detailKelas__cta:active {
   transform: scale(0.96);
+}
+
+.add-kelas,
+.edit-kelas {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 3rem;
+  padding: 4rem 8rem 8rem;
 }
 
 .fiturKelas {
