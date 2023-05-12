@@ -2,7 +2,7 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 .then(()=>{
-    console.log('mongoose connected');
+    console.log('auth connected');
 })
 .catch((e)=>{
     console.log(e);
@@ -28,6 +28,6 @@ const logInSchema=new mongoose.Schema({
     }
 })
 
-const LogInCollection=new mongoose.model('LogInCollection',logInSchema)
+const LogInCollection=new mongoose.model('userCollection',logInSchema)
 
 module.exports=LogInCollection

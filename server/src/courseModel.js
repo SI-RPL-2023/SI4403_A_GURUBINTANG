@@ -2,7 +2,7 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 .then(()=>{
-    console.log('mongoose connected');
+    console.log('course connected');
 })
 .catch((e)=>{
     console.log(e);
@@ -14,6 +14,10 @@ const CourseSchema = new mongoose.Schema({
         required:true
     },
     tentangKelas:{
+        type:String,
+        required:true
+    },
+    introductionKelas:{
         type:String,
         required:true
     },
@@ -39,8 +43,13 @@ const CourseSchema = new mongoose.Schema({
     },
     mentorKelas:{
         type:String,
-        require:true
+        required:true
+    },
+    idMentor:{
+        type:String,
+        required:true
     }
+
 })
 
 const CourseCollection=new mongoose.model('courseCollection', CourseSchema)
