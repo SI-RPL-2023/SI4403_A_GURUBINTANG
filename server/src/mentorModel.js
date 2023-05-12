@@ -2,7 +2,7 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 .then(()=>{
-    console.log('mongoose connected');
+    console.log('mentor connected');
 })
 .catch((e)=>{
     console.log(e);
