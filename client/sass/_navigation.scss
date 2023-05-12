@@ -136,6 +136,20 @@
         font-size: 1.6rem;
         font-weight: 600;
         color: #5D5F60;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        hr {
+            opacity: .7;
+        }
+
+        span {
+            font-size: 1.2rem;
+            font-style: italic;
+            font-weight: 400;
+            opacity: .7;
+        }
     }
 
     &__user-arrow {

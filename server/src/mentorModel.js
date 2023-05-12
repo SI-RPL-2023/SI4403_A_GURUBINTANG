@@ -13,7 +13,15 @@ const MentorSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    jabatanMentor:{
+    descMentor:{
+        type:String,
+        required:true
+    },
+    muridMentor:{
+        type:Number,
+        required:true
+    },
+    keahlianMentor:{
         type:String,
         required:true
     }

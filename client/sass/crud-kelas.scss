@@ -1,0 +1,8 @@
+.add-kelas,
+.edit-kelas {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    grid-gap: 3rem;
+    padding: 4rem 8rem 8rem;
+}

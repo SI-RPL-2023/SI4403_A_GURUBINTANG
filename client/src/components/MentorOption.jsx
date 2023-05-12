@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import dashboard from '../asset/icon/dashboard.svg';
@@ -7,13 +7,12 @@ import receipt from '../asset/icon/receipt.svg';
 import setting from '../asset/icon/setting.svg';
 import logout from '../asset/icon/logout.svg';
 
-const UserOption = ({isClicked, removeCookie}) => {
-     let navigate = useNavigate()
+const MentorOption = ({isClicked, removeCookie}) => {
+     let navigate = useNavigate();
 
      const handleLogout = () => {
           removeCookie('id', {path:'/'})
           removeCookie('username', {path:'/'})
-          removeCookie('role', {path:'/'})
           toast.success('Logout successful')
           navigate('/')
      }
@@ -39,4 +38,4 @@ const UserOption = ({isClicked, removeCookie}) => {
     )
 }
 
-export default UserOption
+export default MentorOption

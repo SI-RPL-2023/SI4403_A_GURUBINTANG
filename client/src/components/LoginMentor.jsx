@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Form from "./UI/Form";
-import google from '../asset/icon/google.svg';
 import eye from '../asset/icon/eye.svg';
 import eyeSlash from '../asset/icon/eye-slash.svg';
+import { toast } from "react-toastify";
+import { loginMentor } from "../controller/loginMentor";
+import LoaderCTA from "./LoaderCTA";
 
-const LoginMentor = () => {
-    let navigate = useNavigate();
+const LoginMentor = ({cookies, setCookie}) => {
+    let navigate = useNavigate()
+    const [isLoad, setLoad] = useState(false)
     const [loginValue, setLoginValue] = useState({email: '', password: ''})
     const [isHidePass, setHidePass] = useState(true)
     const {email, password} = loginValue
@@ -24,34 +27,32 @@ const LoginMentor = () => {
         setHidePass(!isHidePass)
     }
 
-    const handleLogin = e => {
+    const handleLogin = async (e) => {
         e.preventDefault()
+        setLoad(true)
 
-        fetch('https://rangkoom.com/gurubintang/api/v1/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json',  'Accept': 'application/json' },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                })
-            }).then(function(response) {
-                return response.json();
-            }).then(function(data) {
-                const {tokens, user} = data
-                const {access: {token: token_access}, refresh: {token: token_refresh}} = tokens
-                localStorage.setItem('token_access', token_access);
-                localStorage.setItem('token_refresh', token_refresh);
-                localStorage.setItem('user_info', JSON.stringify(user));
+        try {
+            const {id, username, message} = await loginMentor(loginValue) 
+            
+            setTimeout(() => {
+                setCookie('id', id, { path: '/' })
+                setCookie('username', username, { path: '/' })
+                setCookie('role', 'mentor', { path: '/' })
+                toast.success(message)
                 navigate('/')
-                window.location.reload()
-            });
+                setLoad(false)
+            }, 1500)
+        } catch (error) {
+            toast.warning(error.message)
+            setLoad(false)
+        }  
     }
 
     return (
         <Form>
             <div className="form-header">
                 <h1 className="form-title">Masuk untuk Melanjutkan Optimasi Kelasmu!</h1>
-                <p className="form-redirect">Belum punya akun? <a href="/register-mentor">Sign Up</a></p>
+                <p className="form-redirect">Belum punya akun? <a href="/register/mentor">Sign Up</a></p>
             </div>
             <div className="form-box">
                 <form action="" className="login__form form"  onSubmit={handleLogin}>
@@ -67,7 +68,9 @@ const LoginMentor = () => {
                         </div>
                         <a href="#" className="forgot-password">Lupa password?</a>
                     </div>
-                    <button type="submit" className="form-cta">Login</button>
+                    <button type="submit" className="form-cta">
+                        {isLoad ? <LoaderCTA /> : 'Login'}
+                    </button>
                     <div className="form-alternatif">
                         <div></div>
                         <p>atau</p>

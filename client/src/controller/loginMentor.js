@@ -1,5 +1,5 @@
-const login = (data) => {
-    return fetch(`http://localhost:3000/login`, {
+const loginMentor = (data) => {
+    return fetch(`http://localhost:3000/login/mentor`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
@@ -16,4 +16,4 @@ const login = (data) => {
         })
 }
 
-export {login}
+export {loginMentor}

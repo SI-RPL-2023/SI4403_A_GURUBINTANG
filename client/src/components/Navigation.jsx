@@ -21,20 +21,16 @@ const Navigation = ({cookies, removeCookie}) => {
                     <li className="nav__item"><NavLink to='/kelas' activeClassName="active" className="nav__link" >Katalog Kelas</NavLink></li>
                     <li className="nav__item"><NavLink to='/mentor' activeClassName="active" className="nav__link" >Our Mentors</NavLink></li>
                     <li className="nav__item"><NavLink to='/tentang' activeClassName="active" className="nav__link" >Tentang</NavLink></li>
-                    {/* <li className="nav__item">
-                        <span className={`nav__option ${isClicked && 'clicked'}`} onClick={handleOption}>
-                            Tentang 
-                            <svg className={`arrow ${isClicked && 'rotate'}`}>
-                                <use xlinkHref={`${icon}#icon-arrow`}></use>
-                            </svg>
-                        </span>
-                    </li> */}
                 </ul>
             </div>
             {cookies.id ?
             <div className={`nav__user ${isClicked && 'nav__user-clicked'}`} onClick={handleOptionNav}>
                 <img src={avatar} alt="" className='nav__user-avatar' />
-                <h1 className="nav__user-name">{cookies.username}</h1>
+                <h1 className="nav__user-name">
+                    {cookies.username}
+                    <hr />
+                    <span>{cookies.role}</span>
+                </h1>
                 <img src={arrow} alt="" className={`nav__user-arrow ${isClicked && 'arrow-clicked'}`} />
                 <UserOption isClicked={isClicked} removeCookie={removeCookie} />
             </div> :

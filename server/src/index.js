@@ -120,6 +120,7 @@ app.post("/signup", async (req, res) => {
       tentangKelas: req.body.tentangKelas,
       kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
+
       totalmateriKelas: req.body.totalmateriKelas,
       hargacoretKelas:req.body.hargacoretKelas,
       hargaasliKelas:req.body.hargaasliKelas,
@@ -176,7 +177,7 @@ app.post("/signup", async (req, res) => {
       namaMentor: req.body.namaMentor,
       jabatanMentor: req.body.jabatanMentor,
     }
-  
+    
     try {
       const result = await mentorCollection.insertMany(data)
       console.log(result)

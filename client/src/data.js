@@ -192,8 +192,6 @@ const listTransaksi = [
 
 const listKelas = [
     new Kelas(kelas_1, 'Kelas Filosofi Mengajar untuk Guru', listMateri, false, 'GRATIS'),
-    new Kelas(kelas_2, 'Kelas Teknologi untuk Pengajar', listMateri, false),
-    new Kelas(kelas_1, 'Kelas Filosofi Mengajar untuk Guru', listMateri, false), 
     new Kelas(kelas_2, 'Kelas Teknologi untuk Pengajar', listMateri, false)
 ]
 

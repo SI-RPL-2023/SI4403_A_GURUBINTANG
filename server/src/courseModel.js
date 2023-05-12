@@ -29,15 +29,15 @@ const CourseSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    totalmateriKelas:{
+    totalMateriKelas:{
         type:Number,
         required:true
     },
-    hargacoretKelas:{
+    hargaCoretKelas:{
         type:Number,
         required:true
     },
-    hargaasliKelas:{
+    hargaAsliKelas:{
         type:Number,
         required:true
     },
