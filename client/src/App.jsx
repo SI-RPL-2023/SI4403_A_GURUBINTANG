@@ -9,8 +9,8 @@ import Navigation from "./components/Navigation";
 import Kelas from "./components/Kelas";
 import DetailKelas from "./components/DetailKelas";
 // import Tentang from "./components/Tentang";
-// import Checkout from "./components/Checkout";
-// import InstruksiBayar from "./components/InstruksiBayar";
+import Checkout from "./components/Checkout";
+import InstruksiBayar from "./components/InstruksiBayar";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import RegisterMentor from "./components/RegisterMentor";
@@ -19,7 +19,8 @@ import LoginMentor from "./components/LoginMentor";
 // import SemuaKelasUser from "./components/SemuaKelasUser";
 // import SemuaSertifUser from "./components/SemuaSertifUser";
 // import DaftarTransaksi from "./components/DaftarTransaksi";
-// import SuccessPayment from "./components/SuccessPayment";
+import SuccessPayment from "./components/SuccessPayment";
+import WaitingPayment from "./components/WaitingPayment";
 // import Materi from "./components/Materi";
 import Loader from "./components/Loader";
 import Mentor from "./components/Mentor";
@@ -76,6 +77,12 @@ const App = () => {
           <Route path='mentor' >
             <Route path='kelas/edit/:id_kelas' element={<EditKelas />} />
           </Route>
+          <Route path='checkout/:id_kelas' element={cookies.id ? <Checkout cookies={cookies} /> : <Navigate to='/login' />} />
+          <Route path='payment' >
+            <Route path='success/:id_user/:id_kelas' element={cookies.id ? <SuccessPayment cookies={cookies} /> : <Login />} />
+            <Route path='waiting/:id_user/:id_kelas' element={cookies.id ? <WaitingPayment /> : <Login />} />
+          </Route>
+          <Route path='instruksi-pembayaran/:id_user/:id_kelas' element={<InstruksiBayar />} />
           {/* <Route path='dashboard' element={accessToken ? <Dashboard /> : <Login />} /> */}
           {/* <Route path='dashboard' >
             <Route path='kelas-saya' element={accessToken ? <SemuaKelasUser /> : <Login />} />
