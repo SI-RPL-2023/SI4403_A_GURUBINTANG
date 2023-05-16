@@ -4,10 +4,6 @@ import bookmark from '../asset/icon/bookmark.svg'
 import kelas_1 from '../asset/images/kelas_1.png';
 
 const CardKelasMentor = ({listKelas, className}) => {
-    // const handleClick = (i) => {
-    //     const cards = [...document.querySelectorAll('.card__item')]
-    //     cards[i].classList.toggle('click')
-    // }
 
     const handleDelete = id => {
         console.log(id);
