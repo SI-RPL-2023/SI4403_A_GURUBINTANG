@@ -3,7 +3,6 @@ import MateriSlide from "./MateriSlide";
 import documentDark from '../asset/icon/document-dark.svg';
 import mentor from '../asset/images/mentor.png';
 import mentor2 from '../asset/images/mentor2.png';
-import { listContent } from "../data";
 import { useParams } from "react-router-dom";
 import { getCourse } from "../controller/getCourse";
 
