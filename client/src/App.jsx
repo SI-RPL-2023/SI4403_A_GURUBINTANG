@@ -8,6 +8,8 @@ import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import Kelas from "./components/Kelas";
 import DetailKelas from "./components/DetailKelas";
+import AddKelas from "./components/AddKelas";
+import KelasMentor from "./components/KelasMentor";
 // import Tentang from "./components/Tentang";
 import Checkout from "./components/Checkout";
 import InstruksiBayar from "./components/InstruksiBayar";
@@ -75,6 +77,8 @@ const App = () => {
             {/* <Route path=':id' element={<DetailKelas />} /> */}
           </Route>
           <Route path='mentor' >
+            <Route path='kelas/:mentor_id' element={<KelasMentor />} /> 
+            <Route path='kelas/add/:id_mentor' element={<AddKelas />} />
             <Route path='kelas/edit/:id_kelas' element={<EditKelas />} />
           </Route>
           <Route path='checkout/:id_kelas' element={cookies.id ? <Checkout cookies={cookies} /> : <Navigate to='/login' />} />
