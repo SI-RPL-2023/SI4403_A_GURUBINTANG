@@ -1,7 +1,7 @@
 import React from "react"
 
 const FormKelas = ({handleChange, handleSubmit, kelasValue, cta}) => {
-    const {namaKelas, tentangKelas, introductionKelas, kategoriKelas, materiKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas} = kelasValue
+    const {namaKelas, tentangKelas, introductionKelas, kategoriKelas, materiKelas, hargaCoretKelas, hargaAsliKelas} = kelasValue
 
     return (
         <div className="form-box">
@@ -12,12 +12,12 @@ const FormKelas = ({handleChange, handleSubmit, kelasValue, cta}) => {
                     </div>
                     <div className="input-group">
                         <label htmlFor="">Introduction Kelas</label>
-                        <textarea name="introductionKelas" id="introductionKelas" rows="8" autoComplete='off' onChange={handleChange} ></textarea>
+                        <textarea name="introductionKelas" id="introductionKelas" rows="8" autoComplete='off' placeholder="Tulis introduction kelas ..." onChange={handleChange} ></textarea>
                         {/* <input type="text" name="introductionKelas" id="introductionKelas" value={introductionKelas} onChange={handleChange} placeholder="Tulis introduction kelas ..." autoComplete='off' /> */}
                     </div>
                     <div className="input-group">
                         <label htmlFor="">Tentang Kelas</label>
-                        <textarea name="tentangKelas" id="tentangKelas" rows="8" autoComplete='off' value={tentangKelas} onChange={handleChange} ></textarea>
+                        <textarea name="tentangKelas" id="tentangKelas" rows="8" autoComplete='off' placeholder="Tulis tentang kelas ..." value={tentangKelas} onChange={handleChange} ></textarea>
                         {/* <input type="text" name="tentangKelas" id="tentangKelas" value={tentangKelas} onChange={handleChange} placeholder="Tulis deskripsi kelas ..." autoComplete='off' /> */}
                     </div>
                     <div className="input-group">

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import UserOption from "./UserOption";
+import MentorOption from "./MentorOption";
 import logo from '../asset/images/logo.png';
 import avatar from '../asset/images/avatar.png';
 import arrow from '../asset/icon/arrow.svg';
@@ -18,8 +19,8 @@ const Navigation = ({cookies, removeCookie}) => {
                 <a href="/" className="nav__logo-link"><img src={logo} alt="Guru Bintang Logo" className="nav__logo" /></a>
                 <ul className="nav__list">
                     <li className="nav__item"><NavLink to='/' activeClassName="active" className="nav__link" exact>Beranda</NavLink></li>
-                    <li className="nav__item"><NavLink to='/kelas' activeClassName="active" className="nav__link" >Katalog Kelas</NavLink></li>
-                    <li className="nav__item"><NavLink to='/mentor' activeClassName="active" className="nav__link" >Our Mentors</NavLink></li>
+                    {cookies.role !== 'mentor' && <li className="nav__item"><NavLink to='/kelas' activeClassName="active" className="nav__link" >Katalog Kelas</NavLink></li>}
+                    <li className="nav__item"><NavLink to='/mentors' activeClassName="active" className="nav__link" >Our Mentors</NavLink></li>
                     <li className="nav__item"><NavLink to='/tentang' activeClassName="active" className="nav__link" >Tentang</NavLink></li>
                 </ul>
             </div>
@@ -32,7 +33,9 @@ const Navigation = ({cookies, removeCookie}) => {
                     <span>{cookies.role}</span>
                 </h1>
                 <img src={arrow} alt="" className={`nav__user-arrow ${isClicked && 'arrow-clicked'}`} />
-                <UserOption isClicked={isClicked} removeCookie={removeCookie} />
+                {cookies.role === 'user' ? 
+                <UserOption isClicked={isClicked} cookies={cookies} removeCookie={removeCookie} /> : 
+                <MentorOption isClicked={isClicked} cookies={cookies} removeCookie={removeCookie} />}
             </div> :
             <div className="nav__box-right">
                 <a href="/register" className="nav__register">Sign Up</a>

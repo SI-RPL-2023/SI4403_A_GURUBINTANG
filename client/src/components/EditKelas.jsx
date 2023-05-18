@@ -24,7 +24,7 @@ const EditKelas = () => {
 
     const fetchDetailKelas = async () => {
         const data = await getCourse()
-        const kelas = data.find(item => item._id === '6458d639edd79b62a22ae3e2')
+        const kelas = data.find(item => item._id === id_kelas)
         setEditValue(preVal => {
             return {
                 ...preVal,

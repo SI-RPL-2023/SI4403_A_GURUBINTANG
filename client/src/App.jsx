@@ -8,25 +8,29 @@ import Home from "./components/Home";
 import Navigation from "./components/Navigation";
 import Kelas from "./components/Kelas";
 import DetailKelas from "./components/DetailKelas";
-import AddKelas from "./components/AddKelas";
-import KelasMentor from "./components/KelasMentor";
 // import Tentang from "./components/Tentang";
 import Checkout from "./components/Checkout";
-import InstruksiBayar from "./components/InstruksiBayar";
+// import InstruksiBayar from "./components/InstruksiBayar";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import RegisterMentor from "./components/RegisterMentor";
 import LoginMentor from "./components/LoginMentor";
 // import Dashboard from "./components/Dashboard";
-// import SemuaKelasUser from "./components/SemuaKelasUser";
+import SemuaKelasUser from "./components/SemuaKelasUser";
 // import SemuaSertifUser from "./components/SemuaSertifUser";
 // import DaftarTransaksi from "./components/DaftarTransaksi";
-import SuccessPayment from "./components/SuccessPayment";
-import WaitingPayment from "./components/WaitingPayment";
+// import SuccessPayment from "./components/SuccessPayment";
 // import Materi from "./components/Materi";
 import Loader from "./components/Loader";
 import Mentor from "./components/Mentor";
+import SuccessPayment from "./components/SuccessPayment";
+import WaitingPayment from "./components/WaitingPayment";
+import InstruksiBayar from "./components/InstruksiBayar";
+import MentorOption from "./components/MentorOption";
+import KelasMentor from "./components/KelasMentor";
+import AddKelas from "./components/AddKelas";
 import EditKelas from "./components/EditKelas";
+import Materi from "./components/Materi";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'username', 'role']);
@@ -69,17 +73,12 @@ const App = () => {
             <Route path="mentor" element={cookies.id ? <Navigate to='/' /> : <LoginMentor cookies={cookies} setCookie={setCookie} />} />
           </Route>
           <Route path='kelas' >
-            <Route index element={<Kelas />} />
+            <Route index element={cookies.role === 'mentor' ? <Navigate to='/' /> : <Kelas />} />
             <Route path=':id' element={<DetailKelas />} />
           </Route>
-          <Route path='mentor' >
+          <Route path='mentors' >
             <Route index element={<Mentor />} />
             {/* <Route path=':id' element={<DetailKelas />} /> */}
-          </Route>
-          <Route path='mentor' >
-            <Route path='kelas/:mentor_id' element={<KelasMentor />} /> 
-            <Route path='kelas/add/:id_mentor' element={<AddKelas />} />
-            <Route path='kelas/edit/:id_kelas' element={<EditKelas />} />
           </Route>
           <Route path='checkout/:id_kelas' element={cookies.id ? <Checkout cookies={cookies} /> : <Navigate to='/login' />} />
           <Route path='payment' >
@@ -87,17 +86,32 @@ const App = () => {
             <Route path='waiting/:id_user/:id_kelas' element={cookies.id ? <WaitingPayment /> : <Login />} />
           </Route>
           <Route path='instruksi-pembayaran/:id_user/:id_kelas' element={<InstruksiBayar />} />
+          <Route path='mentor' >
+            {/* <Route path='dashboard/:id' element={cookies.id ? <SuccessPayment /> : <Login />} /> */}
+            <Route path='kelas/:mentor_id' element={<KelasMentor />} />
+            {/* <Route path='transaksi/:id' element={cookies.id ? <WaitingPayment /> : <Login />} /> */}
+            <Route path='kelas/add/:id_mentor' element={<AddKelas />} />
+            <Route path='kelas/edit/:id_kelas' element={<EditKelas />} />
+          </Route>
+          <Route path='materi' >
+            <Route path=':id_user/:id_kelas' element={cookies.role === 'user' ? <Materi /> : <Login />} />
+          </Route>
+          <Route path='user' >
+            <Route path='kelas-saya/:id_user' element={<SemuaKelasUser cookies={cookies} />} />
+            {/* <Route path='transaksi/:id_user' element={<Materi />} /> */}
+            {/* <Route path='setting/:id_user' element={<Materi />} /> */}
+          </Route>
+          {/* <Route path='feedback' >
+            <Route path=':id_kelas' element={<Materi />} />
+          </Route> */}
           {/* <Route path='dashboard' element={accessToken ? <Dashboard /> : <Login />} /> */}
           {/* <Route path='dashboard' >
             <Route path='kelas-saya' element={accessToken ? <SemuaKelasUser /> : <Login />} />
             <Route path='sertifikat' element={accessToken ? <SemuaSertifUser /> : <Login />} />
             <Route path='transaksi' element={accessToken ? <DaftarTransaksi /> : <Login />} />
           </Route>
-          <Route path='payment/success' element={<SuccessPayment />} />
-          <Route path='materi' element={<Materi />} />
           <Route path='tentang' element={<Tentang />} />
-          <Route path='checkout/:judul' element={accessToken ? <Checkout /> : <Login />} />
-          <Route path='instruksi-pembayaran' element={<InstruksiBayar />} /> */}
+        <Route path='instruksi-pembayaran' element={<InstruksiBayar />} /> */}
 
           {/* <Route path='/produk-kelas/:judul' element={<DetailProduk />} /> */}
           {/* <Route path='/program' element={<Program />} /> */}
