@@ -12,6 +12,9 @@ const ListMateri = ({title, isPurchased, materi}) => {
             <a className="fiturKelas__materi-link" aria-disabled>
                 <img src={isPurchased ? document : lock} className='fiturKelas__materi-icon' alt="" />Konsep Psikologi Pendidikan
             </a>
+            <a className="fiturKelas__materi-link" aria-disabled>
+                <img src={isPurchased ? document : lock} className='fiturKelas__materi-icon' alt="" />Feedback Kelas
+            </a>
             {/* {materi.map((item, i) => {
                 const {judul_materi, isi_materi: {content, title_content}} = item
                 return (

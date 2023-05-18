@@ -19,7 +19,7 @@ const Card = ({listKelas, className}) => {
                             <h1 className="card__title">{namaKelas}</h1>
                             <p className="card__subtitle">{tentangKelas.slice(0, 100)}...</p>
                             <div className="card__kategori">
-                                <div><img src={bookKategori} alt="" />{totalMateriKelas}</div>
+                                <div><img src={bookKategori} alt="" />3</div>
                                 <div><img src={bookmark} alt="" />{kategoriKelas}</div>
                             </div>
                         </div>

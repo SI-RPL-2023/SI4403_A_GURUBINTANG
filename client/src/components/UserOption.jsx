@@ -7,8 +7,8 @@ import receipt from '../asset/icon/receipt.svg';
 import setting from '../asset/icon/setting.svg';
 import logout from '../asset/icon/logout.svg';
 
-const UserOption = ({isClicked, removeCookie}) => {
-     let navigate = useNavigate()
+const UserOption = ({isClicked, cookies, removeCookie}) => {
+     const navigate = useNavigate()
 
      const handleLogout = () => {
           removeCookie('id', {path:'/'})
@@ -20,17 +20,17 @@ const UserOption = ({isClicked, removeCookie}) => {
 
     return (
        <ul className={`option ${isClicked && 'option-clicked'}`}>
-           <li className="option__list">
+           {/* <li className="option__list">
                 <a href="/dashboard" className="option__link"><img className="option__icon" src={dashboard} alt="" /> Dashboard</a>
+           </li> */}
+           <li className="option__list">
+                <a href={`/user/kelas-saya/${cookies.id}`} className="option__link"><img className="option__icon" src={note} alt="" /> Kelas Saya</a>
            </li>
            <li className="option__list">
-                <a href="/dashboard/kelas-saya" className="option__link"><img className="option__icon" src={note} alt="" /> Kelas Saya</a>
+                <a href={`/user/transaksi/${cookies.id}`} className="option__link"><img className="option__icon" src={receipt} alt="" />Riwayat Transaksi</a>
            </li>
            <li className="option__list">
-                <a href="/dashboard/transaksi" className="option__link"><img className="option__icon" src={receipt} alt="" /> Daftar Transaksi</a>
-           </li>
-           <li className="option__list">
-                <a href="/setting" className="option__link"><img className="option__icon" src={setting} alt="" /> Pengaturan Akun</a>
+                <a href={`/user/setting/${cookies.id}`} className="option__link"><img className="option__icon" src={setting} alt="" /> Pengaturan Akun</a>
            </li>
            <li className="option__list" onClick={handleLogout}>
                 <a className="option__link"><img className="option__icon" src={logout} alt="" /> Logout</a>

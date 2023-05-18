@@ -87,7 +87,7 @@ const Checkout = ({cookies}) => {
                         <p className="checkout__item-desc">{`${tentangKelas.slice(0,120)}...`}</p>
                         <div className="checkout__item-spec">
                             <div className="checkout__item-kategori">
-                                <div><img src={bookKategori} alt="" />{totalMateriKelas}</div>
+                                <div><img src={bookKategori} alt="" />3</div>
                                 <div><img src={bookmark} alt="" />{kategoriKelas}</div>
                             </div>
                             <div className="checkout__item-harga">

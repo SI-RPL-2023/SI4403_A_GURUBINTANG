@@ -1,0 +1,27 @@
+.kelas-mentor {
+    min-height: 100vh;
+
+    &__add {
+        position: fixed;
+        bottom: 5rem;
+        right: 8rem;
+        width: 6rem;
+        height: 6rem;
+        border-radius: 50%;
+        background-color: $color-primary;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        transition: .1s ease;
+        z-index: 5;
+
+        &:active {
+            transform: scale(.95);
+        }
+
+        img {
+            width: 50%;
+            
+        }
+    }
+}
