@@ -74,7 +74,7 @@ const App = () => {
           </Route>
           <Route path='kelas' >
             <Route index element={cookies.role === 'mentor' ? <Navigate to='/' /> : <Kelas />} />
-            <Route path=':id' element={<DetailKelas />} />
+            <Route path=':id_kelas' element={<DetailKelas />} />
           </Route>
           <Route path='mentors' >
             <Route index element={<Mentor />} />

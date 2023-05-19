@@ -13,14 +13,14 @@ import { getCourse } from "../controller/getCourse";
 
 
 const DetailKelas = () => {
-    const { id } = useParams()
+    const { id_kelas } = useParams()
     const [course, setCourse] = useState([])
     const [selectedKelas, setSelectedKelas] = useState({_id: '', namaKelas: '', tentangKelas: '', kategoriKelas: '', materiKelas: '', totalMateriKelas: '', hargaCoretKelas: '', hargaAsliKelas: '', mentorKelas: ''})
     const {namaKelas, tentangKelas, kategoriKelas, materiKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas, mentorKelas} = selectedKelas
 
     const getSpesificCourse = async () => {
         const data = await getCourse()
-        const kelas = data.find(item => item._id === id)
+        const kelas = data.find(item => item._id === id_kelas)
         setCourse(data)
         setSelectedKelas(kelas)
     }
@@ -47,7 +47,7 @@ const DetailKelas = () => {
                             <h3>Rp{hargaCoretKelas}</h3>
                             <h2>{hargaAsliKelas === 0 ? 'Gratis' : `Rp${hargaAsliKelas}`}</h2>
                         </div>
-                        <a href={`/checkout/${id}`} className="detailKelas__cta"><img src={bag} alt="" />Beli Kelas</a>
+                        <a href={`/checkout/${id_kelas}`} className="detailKelas__cta"><img src={bag} alt="" />Beli Kelas</a>
                     </div>
                     <div className="detailKelas__image-box">
                         <div className="detailKelas__rectangle"></div>
@@ -55,7 +55,7 @@ const DetailKelas = () => {
                         <img src={detailbanner} alt="" className="detailKelas__kelas-image" />
                     </div>
                 </div>
-                <FiturKelas id={id} title={namaKelas} isPurchased={false} materi={materiKelas} totalMateri={totalMateriKelas} tentangKelas={tentangKelas} />
+                <FiturKelas id_kelas={id_kelas} title={namaKelas} isPurchased={false} materi={materiKelas} totalMateri={totalMateriKelas} tentangKelas={tentangKelas} />
                 <div className="detailKelas__cardBox kelas-suggestion">
                     <h1>Kamu Mungkin Akan Suka</h1>
                     <Card listKelas={course.slice(0,4)} />
