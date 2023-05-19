@@ -8,7 +8,7 @@ import { listFasilitas } from "../data";
 import ListMateri from "./ListMateri";
 import { useParams } from "react-router-dom";
 
-const FiturKelas = ({id, title, tentangKelas, isPurchased, totalMateri, materi}) => {
+const FiturKelas = ({id_kelas, title, tentangKelas, isPurchased, totalMateri, materi}) => {
 
     return (
         <div className="fiturKelas">
@@ -21,7 +21,7 @@ const FiturKelas = ({id, title, tentangKelas, isPurchased, totalMateri, materi})
                     <li><a href="#mentor" className="fiturKelas__nav-link">Mentor</a></li>
                     <li><a href="#review" className="fiturKelas__nav-link">Review</a></li>
                 </ul>
-                <a href={`/checkout/${id}`} className="fiturKelas__nav-cta"><img src={bag} alt="" />Beli Kelas</a>
+                <a href={`/checkout/${id_kelas}`} className="fiturKelas__nav-cta"><img src={bag} alt="" />Beli Kelas</a>
             </div>
             <div className="fiturKelas__detail-box" id="tentang-kelas">
                 <div className="fiturKelas__detail">
