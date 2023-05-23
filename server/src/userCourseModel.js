@@ -2,31 +2,33 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 .then(()=>{
-    console.log('mentor connected')
+    console.log('myCourse connected')
 })
 .catch((e)=>{
     console.log(e)
 })
 
-const MentorSchema = new mongoose.Schema({
-    namaMentor:{
+const CourseSchema = new mongoose.Schema({
+    idKelas:{
         type:String,
         required:true
     },
-    descMentor:{
+    idUser:{
         type:String,
         required:true
     },
-    muridMentor:{
-        type:Number,
+    isPurchased:{
+        type:Boolean,
         required:true
     },
-    keahlianMentor:{
+    status:{
         type:String,
         required:true
     }
+
 })
 
-const MentorCollection=new mongoose.model('mentorCollection', MentorSchema)
+const userCourseCollection=new mongoose.model('userCourseCollection', userCourseSchema)
 
-module.exports=MentorCollection
+module.exports= userCourseCollection
+

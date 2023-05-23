@@ -7,6 +7,7 @@ const authCollection = require("./authModel")
 const mentorCollection = require("./mentorModel")
 const CourseCollection = require("./courseModel")
 const CheckoutCollection = require("./checkoutModel")
+const myCourseCollection = require("./userCourseModel")
 
 
 app.use(cors())
@@ -27,6 +28,34 @@ app.get("/course", (req, res)=>{
     }
 })
 
+app.get("/course/:idUser", async (req, res)=>{
+  try {
+    const data = await myCourseCollection.findOne({ _id: req.params.idUser })
+    if (!data) {
+      res.status(404).json({ success: false, message: "data empty" })
+      return
+    }
+    res.json({ data })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" })
+  }
+})
+
+app.get("/course/:idCourse", async (req, res) => {
+  try {
+    const data = await CourseCollection.findOne({ _id: req.params.idCourse })
+    if (!data) {
+      res.status(404).json({ success: false, message: "data empty" })
+      return
+    }
+    res.json({ data })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" })
+  }
+})
+
 app.get("/mentor", (req, res)=>{
   try {
     mentorCollection.find().then(data => {
@@ -36,6 +65,20 @@ app.get("/mentor", (req, res)=>{
     })
   } catch (error) {
     // catch error
+  }
+})
+
+app.get("/mentor/:idMentor", async (req, res) => {
+  try {
+    const data = await mentorCollection.findOne({ _id: req.params.idMentor })
+    if (!data) {
+      res.status(404).json({ success: false, message: "data empty" })
+      return
+    }
+    res.json({ data })
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" })
   }
 })
 
@@ -118,13 +161,11 @@ app.post("/signup", async (req, res) => {
     const data = {
       namaKelas: req.body.namaKelas,
       tentangKelas: req.body.tentangKelas,
+      introductionKelas: req.body.introductionKelas,
       kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
-
-      totalmateriKelas: req.body.totalmateriKelas,
       hargacoretKelas:req.body.hargacoretKelas,
       hargaasliKelas:req.body.hargaasliKelas,
-      mentorKelas: req.body.mentorKelas,
       idMentor: req.params.idMentor
     }
   
@@ -137,21 +178,21 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   }) 
-  app.put("/editCourse", async (req, res) =>{
-    const namaKelas = req.body.namaKelas
+  app.put("/editCourse/:idMentor", async (req, res) =>{
+    const idKelas = req.body.idKelas
     const data = {
       namaKelas: req.body.namaKelas,
       tentangKelas: req.body.tentangKelas,
+      introductionKelas: req.body.introductionKelas,
       kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
-      totalmateriKelas: req.body.totalmateriKelas,
       hargacoretKelas:req.body.hargacoretKelas,
       hargaasliKelas:req.body.hargaasliKelas,
-      mentorKelas: req.body.mentorKelas
+      idMentor: req.params.idMentor
     }
 
     try {
-      const result = await CourseCollection.findOneAndUpdate({namaKelas: namaKelas}, data)
+      const result = await CourseCollection.findOneAndUpdate({_id: idKelas}, data)
       console.log(result)
       res.json({success: true, message:"Course "+data.namaKelas+" Updated!"})
     } catch(error) {
@@ -159,11 +200,11 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error"})
     }
   })
-  app.delete("/deleteCourse", async (req, res) =>{
-    const namaKelas = req.body.namaKelas
+  app.delete("/deleteCourse/:idCourse", async (req, res) =>{
+    const idCourse = req.params.idCourse
 
     try {
-      const result = await CourseCollection.findOneAndRemove({namaKelas: namaKelas})
+      const result = await CourseCollection.findOneAndRemove({_id: idCourse})
       console.log(result)
       res.json({success: true, message:"Course Deleted!"})
     } catch (error) {
@@ -222,6 +263,19 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+  app.get("/checkout/:idUserCheckout", async (req, res) => {
+    try {
+      const data = await CheckoutCollection.findOne({ idMentor: req.params.idUserCheckout })
+      if (!data) {
+        res.status(404).json({ success: false, message: "data empty" })
+        return
+      }
+      res.json({ data })
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+  })
   
   app.post("/checkout/admin/:idMentor/:idCheckout", async (req, res) => {
     try {
@@ -241,7 +295,9 @@ app.post("/signup", async (req, res) => {
       console.error(error);
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
-  })  
+  })
+  
+  
 
 
   
