@@ -2,10 +2,10 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 .then(()=>{
-    console.log('auth connected');
+    console.log('auth connected')
 })
 .catch((e)=>{
-    console.log(e);
+    console.log(e)
 })
 
 const logInSchema=new mongoose.Schema({

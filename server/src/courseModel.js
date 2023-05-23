@@ -2,10 +2,10 @@ const mongoose=require("mongoose")
 
 mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 .then(()=>{
-    console.log('course connected');
+    console.log('course connected')
 })
 .catch((e)=>{
-    console.log(e);
+    console.log(e)
 })
 
 const CourseSchema = new mongoose.Schema({
