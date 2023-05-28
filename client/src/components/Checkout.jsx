@@ -19,7 +19,7 @@ const Checkout = ({cookies}) => {
     const [isLeave, setLeave] = useState(false)
     const [isPay, setPay] = useState(false)
     const [checkoutKelas, setCheckoutKelas] = useState({namaKelas: '', tentangKelas: '', kategoriKelas: '', totalMateriKelas: '', hargaCoretKelas: '', hargaAsliKelas: '', idMentor: ''})
-    const {namaKelas, tentangKelas, kategoriKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas, idMentor} = checkoutKelas
+    const {namaKelas, tentangKelas, kategoriKelas, hargaCoretKelas, hargaAsliKelas, idMentor} = checkoutKelas
 
     const handleOverlay = () => {
         setLeave(false)
