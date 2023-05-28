@@ -5,13 +5,14 @@ import mentor from '../asset/images/mentor.png';
 import mentor2 from '../asset/images/mentor2.png';
 import { useParams } from "react-router-dom";
 import { getCourse } from "../controller/getCourse";
+import { getCourseId } from "../controller/getCourseId";
 
 const Materi = () => {
     const {id_user, id_kelas} = useParams()
     const [isChecked, setChecked] = useState(true)
     const [contentTitle, setContentTitle] = useState('')
-    const [selectedKelas, setSelectedKelas] = useState({namaKelas: '', tentangKelas: '', materiKelas: '', mentorKelas: ''})
-    const {namaKelas, tentangKelas, materiKelas, mentorKelas} = selectedKelas
+    const [selectedKelas, setSelectedKelas] = useState({namaKelas: '', tentangKelas: '', introductionKelas: '', materiKelas: '', mentorKelas: ''})
+    const {namaKelas, tentangKelas, introductionKelas, materiKelas, mentorKelas} = selectedKelas
     const navText = ['introduction kelas', namaKelas, 'feedback kelas']
     const [filteredContent, setFilteredContent] = useState('')
 
@@ -19,7 +20,7 @@ const Materi = () => {
         const selectedNav = e.target.value
         setChecked(false)
         if(selectedNav.includes('introduction')) {
-            setFilteredContent(tentangKelas) // harusnya introductionKelas, bukan tentangKelas
+            setFilteredContent(introductionKelas)
         } else if(selectedNav.includes('feedback')) {
             setFilteredContent('feedback')
         } else {
@@ -29,10 +30,9 @@ const Materi = () => {
     }
 
     const getSpesificCourse = async () => {
-        const data = await getCourse()
-        const kelas = data.find(item => item._id === id_kelas)
-        setSelectedKelas(kelas)
-        setFilteredContent(kelas.tentangKelas)
+        const data = await getCourseId(id_kelas)
+        setSelectedKelas(data)
+        setFilteredContent(data.introductionKelas)
         setContentTitle('introduction kelas')
     }
 
