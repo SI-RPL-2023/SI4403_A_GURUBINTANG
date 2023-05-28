@@ -1,11 +1,13 @@
 import React, { useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { addCourse } from "../controller/addCourse"
 import FormKelas from "./FormKelas"
+import { toast } from "react-toastify";
 
 const AddKelas = () => {
-    const {id_mentor} = useParams()
-    const [addValue, setAddValue] = useState({namaKelas: '', tentangKelas: '', introductionKelas: '', kategoriKelas: '', materiKelas: '', hargaCoretKelas: 0, hargaAsliKelas: 0})
-    // const {namaKelas, tentangKelas, kategoriKelas, materiKelas, hargaCoretKelas, hargaAsliKelas} = addValue
+    const navigate = useNavigate()
+    const {id_mentor: idMentor} = useParams()
+    const [addValue, setAddValue] = useState({idMentor, namaKelas: '', tentangKelas: '', introductionKelas: '', kategoriKelas: '', materiKelas: '', hargaCoretKelas: 0, hargaAsliKelas: 0})
 
     const handleChange = e => {
         setAddValue(preVal => {
@@ -16,8 +18,11 @@ const AddKelas = () => {
         })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        const msg = await addCourse(idMentor, addValue)
+        toast.success(msg)
+        navigate(`/mentor/kelas/${idMentor}`)
     }
 
     return (

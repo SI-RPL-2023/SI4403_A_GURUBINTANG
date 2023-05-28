@@ -8,7 +8,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
     console.log(e)
 })
 
-const CourseSchema = new mongoose.Schema({
+const userCourseSchema = new mongoose.Schema({
     idKelas:{
         type:String,
         required:true

@@ -12,7 +12,7 @@ const FormKelas = ({handleChange, handleSubmit, kelasValue, cta}) => {
                     </div>
                     <div className="input-group">
                         <label htmlFor="">Introduction Kelas</label>
-                        <textarea name="introductionKelas" id="introductionKelas" rows="8" autoComplete='off' placeholder="Tulis introduction kelas ..." onChange={handleChange} ></textarea>
+                        <textarea name="introductionKelas" id="introductionKelas" rows="8" autoComplete='off' placeholder="Tulis introduction kelas ..." value={introductionKelas} onChange={handleChange} ></textarea>
                         {/* <input type="text" name="introductionKelas" id="introductionKelas" value={introductionKelas} onChange={handleChange} placeholder="Tulis introduction kelas ..." autoComplete='off' /> */}
                     </div>
                     <div className="input-group">

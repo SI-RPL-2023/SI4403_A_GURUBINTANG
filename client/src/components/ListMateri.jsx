@@ -10,7 +10,7 @@ const ListMateri = ({title, isPurchased, materi}) => {
                 <img src={document} className='fiturKelas__materi-icon' alt="" />Introduction
             </a>
             <a className="fiturKelas__materi-link" aria-disabled>
-                <img src={isPurchased ? document : lock} className='fiturKelas__materi-icon' alt="" />Konsep Psikologi Pendidikan
+                <img src={isPurchased ? document : lock} className='fiturKelas__materi-icon' alt="" />{title}
             </a>
             <a className="fiturKelas__materi-link" aria-disabled>
                 <img src={isPurchased ? document : lock} className='fiturKelas__materi-icon' alt="" />Feedback Kelas

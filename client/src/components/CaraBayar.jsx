@@ -10,9 +10,9 @@ const CaraBayar = ({metodeBayar}) => {
                 <div>
                     <h1 className="bayar__metode">ATM {metodeBayar}</h1>
                     <ol className="bayar__list">
-                        {langkahBayar.map(item => {
+                        {langkahBayar.map((item, i) => {
                             return (
-                                <li className="bayar__item">{item}</li>
+                                <li className="bayar__item" key={i}>{item}</li>
                             )
                         })}
                     </ol>
@@ -20,9 +20,9 @@ const CaraBayar = ({metodeBayar}) => {
                 <div>
                     <h1 className="bayar__metode">{metodeBayar} M-Banking</h1>
                     <ol className="bayar__list">
-                        {langkahBayar.map(item => {
+                        {langkahBayar.map((item, i) => {
                             return (
-                                <li className="bayar__item">{item}</li>
+                                <li className="bayar__item" key={i}>{item}</li>
                             )
                         })}
                     </ol>

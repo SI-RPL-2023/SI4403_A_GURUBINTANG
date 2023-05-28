@@ -11,7 +11,7 @@ import Testimoni from "./Testimoni";
 import FAQ from "./FAQ";
 import { getCourse } from "../controller/getCourse";
 
-const Home = () => {
+const Home = ({cookies}) => {
     const [course, setCourse] = useState([])
 
     const getAllCourse = async () => {
@@ -52,14 +52,17 @@ const Home = () => {
                         )
                     })}
                 </div>
-                <div className="kelas" id="kelas-populer">
-                    <div className="kelas__header">
-                        <h1 className="kelas__title">Kelas Online Spesial <span>Guru Bintang</span></h1>
-                        <p className="kelas__desc">Akses materi yang berupa Modul, Video Pembelajaran, Quiz, Pre-Test, dan Post Test yang lengkap dalam satu platform. Pelajari sekarang di kelas online Guru Bintang.</p>
-                        <a href="/kelas" className="kelas__cta">Lihat Kelas Lainnya</a>
-                    </div>
-                    <Card listKelas={course} />
-                </div>
+                {
+                cookies.role === 'user' || !cookies.role ?  
+                    <div className="kelas" id="kelas-populer">
+                        <div className="kelas__header">
+                            <h1 className="kelas__title">Kelas Online Spesial <span>Guru Bintang</span></h1>
+                            <p className="kelas__desc">Akses materi yang berupa Modul, Video Pembelajaran, Quiz, Pre-Test, dan Post Test yang lengkap dalam satu platform. Pelajari sekarang di kelas online Guru Bintang.</p>
+                            <a href="/kelas" className="kelas__cta">Lihat Kelas Lainnya</a>
+                        </div>
+                        <Card listKelas={course} />
+                    </div> : null
+                }
                 <div className="trust">
                     <h1 className="trust__title">Dipercaya untuk Menjadi Platform Belajar Bagi Calon Pengajar Terbaik</h1>
                     <div className="trust__rating">

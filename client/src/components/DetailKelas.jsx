@@ -10,6 +10,7 @@ import FiturKelas from "./FiturKelas";
 import Card from "./Card";
 import Footer from "./Footer";
 import { getCourse } from "../controller/getCourse";
+import { getCourseId } from "../controller/getCourseId";
 
 
 const DetailKelas = () => {
@@ -20,7 +21,8 @@ const DetailKelas = () => {
 
     const getSpesificCourse = async () => {
         const data = await getCourse()
-        const kelas = data.find(item => item._id === id_kelas)
+        const kelas = await getCourseId(id_kelas)
+        console.log(kelas);
         setCourse(data)
         setSelectedKelas(kelas)
     }
@@ -40,7 +42,7 @@ const DetailKelas = () => {
                         </div>
                         <h1 className="detailKelas__title">{namaKelas}</h1>
                         <div className="detailKelas__spesifikasi">
-                            <div><img src={bookKategori} alt="" />{totalMateriKelas}</div>
+                            <div><img src={bookKategori} alt="" />3</div>
                             <div><img src={bookmark} alt="" />{kategoriKelas}</div>
                         </div>
                         <div className="detailKelas__price">

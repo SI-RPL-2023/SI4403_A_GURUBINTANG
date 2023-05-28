@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 import ListKelas from "./ListKelas";
 import back from '../asset/icon/back.svg';
 import { listDashboardKelas } from "../data";
+import { getCourseUser } from "../controller/getCourseUser";
+import { useParams } from "react-router-dom";
 
 const SemuaKelasUser = ({cookies}) => {
+    const {id_user} = useParams()
     const [filteredKelas, setFilteredKelas] = useState([])
+    const [dataKelas, setDataKelas] = useState([])
     const [kelasProgress, setKelasProgress] = useState([])
     const [kelasSelesai, setKelasSelesai] = useState([])
     const [isChecked, setChecked] = useState(true)
@@ -20,6 +24,10 @@ const SemuaKelasUser = ({cookies}) => {
             setFilteredKelas(kelasSelesai)
             setNotFoundState(e.target.value)
         }
+    }
+
+    const fetchUserCourses = async () => {
+        const data = await getCourseUser(id_user)
     }
 
     useEffect(() => {

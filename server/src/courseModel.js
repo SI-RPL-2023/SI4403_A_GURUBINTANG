@@ -29,20 +29,12 @@ const CourseSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    totalMateriKelas:{
-        type:Number,
-        required:true
-    },
     hargaCoretKelas:{
         type:Number,
         required:true
     },
     hargaAsliKelas:{
         type:Number,
-        required:true
-    },
-    mentorKelas:{
-        type:String,
         required:true
     },
     idMentor:{
