@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ListTransaksi from "./ListTransaksi";
-import { listTransaksi } from "../data";
 import { getUserCheckout } from "../controller/getUserCheckout";
 import { useParams } from "react-router-dom";
 
