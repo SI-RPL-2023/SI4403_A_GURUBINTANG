@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "./Card";
-import { listKelas } from "../data";
 import leftArr from '../asset/icon/leftArrow.svg';
 import trash from '../asset/icon/trash.svg';
 import kelas_1 from '../asset/images/kelas_1.png';
