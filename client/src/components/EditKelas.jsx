@@ -11,7 +11,6 @@ const EditKelas = () => {
     const navigate = useNavigate()
     const {id_kelas: idKelas, id_mentor: idMentor} = useParams()
     const [editValue, setEditValue] = useState({idKelas, idMentor, namaKelas: '', tentangKelas: '', introductionKelas: '', kategoriKelas: '', materiKelas: '', hargaCoretKelas: 0, hargaAsliKelas: 0})
-    // const {namaKelas, tentangKelas, kategoriKelas, materiKelas, hargaCoretKelas, hargaAsliKelas} = addValue
 
     const handleChange = e => {
         setEditValue(preVal => {
