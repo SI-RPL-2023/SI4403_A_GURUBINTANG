@@ -28,9 +28,9 @@ app.get("/course", (req, res)=>{
     }
 })
 
-app.get("/course/:idUser", async (req, res)=>{
+app.get("/course/:idCourse", async (req, res) => {
   try {
-    const data = await myCourseCollection.findOne({ _id: req.params.idUser })
+    const data = await CourseCollection.findOne({ _id: req.params.idCourse })
     if (!data) {
       res.status(404).json({ success: false, message: "data empty" })
       return
@@ -42,9 +42,9 @@ app.get("/course/:idUser", async (req, res)=>{
   }
 })
 
-app.get("/course/:idCourse", async (req, res) => {
+app.get("/course/:idUser", async (req, res)=>{
   try {
-    const data = await CourseCollection.findOne({ _id: req.params.idCourse })
+    const data = await myCourseCollection.findOne({ _id: req.params.idUser })
     if (!data) {
       res.status(404).json({ success: false, message: "data empty" })
       return
@@ -164,8 +164,8 @@ app.post("/signup", async (req, res) => {
       introductionKelas: req.body.introductionKelas,
       kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
-      hargacoretKelas:req.body.hargacoretKelas,
-      hargaasliKelas:req.body.hargaasliKelas,
+      hargaCoretKelas:req.body.hargaCoretKelas,
+      hargaAsliKelas:req.body.hargaAsliKelas,
       idMentor: req.params.idMentor
     }
   
@@ -186,8 +186,8 @@ app.post("/signup", async (req, res) => {
       introductionKelas: req.body.introductionKelas,
       kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
-      hargacoretKelas:req.body.hargacoretKelas,
-      hargaasliKelas:req.body.hargaasliKelas,
+      hargaCoretKelas:req.body.hargaCoretKelas,
+      hargaAsliKelas:req.body.hargaAsliKelas,
       idMentor: req.params.idMentor
     }
 
@@ -237,7 +237,7 @@ app.post("/signup", async (req, res) => {
       deadline:req.body.deadline,
       buktiBayar:req.body.buktiBayar,
       idMentor:req.body.idMentor,
-      isPurchased:false
+      isPurchased:req.body.isPurchased
     }
 
     try {
@@ -252,7 +252,7 @@ app.post("/signup", async (req, res) => {
 
   app.get("/checkout/admin/:idMentor", async (req, res) => {
     try {
-      const data = await CheckoutCollection.findOne({ idMentor: req.params.idMentor })
+      const data = await CheckoutCollection.find({ idMentor: req.params.idMentor })
       if (!data) {
         res.status(404).json({ success: false, message: "data empty" })
         return
@@ -265,7 +265,7 @@ app.post("/signup", async (req, res) => {
   })
   app.get("/checkout/:idUserCheckout", async (req, res) => {
     try {
-      const data = await CheckoutCollection.findOne({ idMentor: req.params.idUserCheckout })
+      const data = await CheckoutCollection.find({ idUserCheckout: req.params.idUserCheckout })
       if (!data) {
         res.status(404).json({ success: false, message: "data empty" })
         return

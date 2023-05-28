@@ -1,12 +1,16 @@
 import React, { useState } from "react"
 import { useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { toast } from "react-toastify"
+import { editCourse } from "../controller/editCourse"
 import { getCourse } from "../controller/getCourse"
+import { getCourseId } from "../controller/getCourseId"
 import FormKelas from "./FormKelas"
 
 const EditKelas = () => {
-    const {id_kelas} = useParams()
-    const [editValue, setEditValue] = useState({namaKelas: '', tentangKelas: '', introductionKelas: '', kategoriKelas: '', materiKelas: '', hargaCoretKelas: 0, hargaAsliKelas: 0})
+    const navigate = useNavigate()
+    const {id_kelas: idKelas, id_mentor: idMentor} = useParams()
+    const [editValue, setEditValue] = useState({idKelas, idMentor, namaKelas: '', tentangKelas: '', introductionKelas: '', kategoriKelas: '', materiKelas: '', hargaCoretKelas: 0, hargaAsliKelas: 0})
     // const {namaKelas, tentangKelas, kategoriKelas, materiKelas, hargaCoretKelas, hargaAsliKelas} = addValue
 
     const handleChange = e => {
@@ -18,17 +22,19 @@ const EditKelas = () => {
         })
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        const msg = await editCourse(idMentor, editValue)
+        toast.success(msg)
+        navigate(`/mentor/kelas/${idMentor}`)
     }
 
     const fetchDetailKelas = async () => {
-        const data = await getCourse()
-        const kelas = data.find(item => item._id === id_kelas)
-        setEditValue(preVal => {
+        const data = await getCourseId(idKelas)
+        setEditValue(preValue => {
             return {
-                ...preVal,
-                ...kelas
+                ...preValue,
+                ...data
             }
         })
     }

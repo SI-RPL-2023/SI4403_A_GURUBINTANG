@@ -10,6 +10,7 @@ import bookmark from '../asset/icon/bookmark.svg'
 import AlertLeave from "./AlertLeave";
 import Payment from "./Payment";
 import { getCourse } from "../controller/getCourse";
+import { getCourseId } from "../controller/getCourseId";
 
 const Checkout = ({cookies}) => {
     const navigate = useNavigate()
@@ -18,8 +19,8 @@ const Checkout = ({cookies}) => {
     const [diskon, setDiskon] = useState('')
     const [isLeave, setLeave] = useState(false)
     const [isPay, setPay] = useState(false)
-    const [checkoutKelas, setCheckoutKelas] = useState({namaKelas: '', tentangKelas: '', kategoriKelas: '', totalMateriKelas: '', hargaCoretKelas: '', hargaAsliKelas: ''})
-    const {namaKelas, tentangKelas, kategoriKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas} = checkoutKelas
+    const [checkoutKelas, setCheckoutKelas] = useState({namaKelas: '', tentangKelas: '', kategoriKelas: '', totalMateriKelas: '', hargaCoretKelas: '', hargaAsliKelas: '', idMentor: ''})
+    const {namaKelas, tentangKelas, kategoriKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas, idMentor} = checkoutKelas
 
     const handleOverlay = () => {
         setLeave(false)
@@ -54,6 +55,7 @@ const Checkout = ({cookies}) => {
     const paymentProps = {
         cookies,
         id_kelas,
+        idMentor,
         isPay,
         hargaAsliKelas,
         handlePaymentPopUp
@@ -61,7 +63,7 @@ const Checkout = ({cookies}) => {
 
     const fetchCheckoutClass = async () => {
         const data = await getCourse()
-        const kelas = data.find(item => item._id === id_kelas)
+        const kelas = await getCourseId(id_kelas)
         setCheckoutKelas(kelas)
         setCourse(data)
     }
@@ -101,7 +103,7 @@ const Checkout = ({cookies}) => {
                     <form className="checkout__form">
                         <div className="checkout__form-harga">
                             <span>Harga Produk</span>
-                            <span>{hargaAsliKelas}</span>
+                            <span>Rp{hargaAsliKelas}</span>
                         </div>
                         <div className="checkout__form-diskon">
                             <span>Kode Diskon</span>
@@ -116,7 +118,7 @@ const Checkout = ({cookies}) => {
                         </div>
                         <div className="checkout__form-totalBayar">
                             <span>Total Pembayaran</span>
-                            <span>{hargaAsliKelas}</span>
+                            <span>Rp{hargaAsliKelas}</span>
                         </div>
                         <button type="button" className="checkout__form-button" onClick={handlePaymentPopUp}>Lanjut ke Pembayaran</button>
                     </form>

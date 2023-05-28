@@ -13,6 +13,7 @@ const MentorOption = ({isClicked, cookies, removeCookie}) => {
      const handleLogout = () => {
           removeCookie('id', {path:'/'})
           removeCookie('username', {path:'/'})
+          removeCookie('role', {path:'/'})
           toast.success('Logout successful')
           navigate('/')
      }

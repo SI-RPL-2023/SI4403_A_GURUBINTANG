@@ -5,13 +5,12 @@ import { getCourse } from "../controller/getCourse"
 import CardKelasMentor from "./CardKelasMentor"
 
 const KelasMentor = () => {
-    const {mentor_id} = useParams()
+    const {id_mentor} = useParams()
     const [isLoad, setLoad] = useState(true)
     const [course, setCourse] = useState([])
 
     const getAllCourse = async () => {
         const data = await getCourse()
-
         setCourse(data)
     }
 
@@ -21,8 +20,8 @@ const KelasMentor = () => {
 
     return (
         <div className="kelas-mentor">
-            <CardKelasMentor listKelas={course} />
-            <a href={`/mentor/kelas/add/${mentor_id}`} className="kelas-mentor__add">
+            <CardKelasMentor listKelas={course} id_mentor={id_mentor} />
+            <a href={`/mentor/kelas/add/${id_mentor}`} className="kelas-mentor__add">
                 <img src={plus} alt="" />
             </a>
         </div>

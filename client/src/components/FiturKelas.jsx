@@ -50,7 +50,7 @@ const FiturKelas = ({id_kelas, title, tentangKelas, isPurchased, totalMateri, ma
                         <div className="fiturKelas__materi-box">
                             <div className="fiturKelas__materi-heading">
                                 <h1>Materi Kelas</h1>
-                                <h2>{totalMateri} Materi</h2>
+                                <h2>3 Materi</h2>
                             </div>
                             <div className="fiturKelas__materi-detail">
                                 <ListMateri title={title} isPurchased={isPurchased} materi={materi} />

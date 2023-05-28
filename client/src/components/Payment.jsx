@@ -4,22 +4,46 @@ import close from '../asset/icon/close.svg';
 import mandiri from '../asset/images/mandiri.png';
 import bca from '../asset/images/bca.png';
 import bni from '../asset/images/bni.png';
+import { toast } from "react-toastify";
 import moment from 'moment';
 import 'moment/locale/id';
+import { addCheckout } from "../controller/addCheckout";
 
-const Payment = ({id_kelas, isPay, hargaAsliKelas, handlePaymentPopUp, cookies}) => {
+const Payment = ({id_kelas, idMentor, isPay, hargaAsliKelas, handlePaymentPopUp, cookies}) => {
     const [bank, setBank] = useState('')
     const navigate = useNavigate()
 
-    const handlePaymentSubmit = () => {
+    const handlePaymentSubmit = async () => {
+        const tomorrow = moment().add(1, 'days')
+        const data = {
+            idKelasCheckout: id_kelas,
+            idUserCheckout: cookies.id,
+            timestamp: Date.now() + 86400000,
+            deadline: tomorrow.locale('id').format('LLLL'),
+            buktiBayar: '',
+            idMentor: idMentor,
+            isPurchased: false
+        }
+
+        const dataGratis = {
+            idKelasCheckout: id_kelas,
+            idUserCheckout: cookies.id,
+            timestamp: Date.now(),
+            deadline: moment().add(0, 'days').locale('id').format('LLLL'),
+            buktiBayar: '',
+            idMentor: idMentor,
+            isPurchased: true
+        }
+
         if(hargaAsliKelas === 0) {
+            const msg = await addCheckout(dataGratis)
+            toast.success(msg)
             navigate(`/payment/success/${cookies.id}/${id_kelas}`)
         } else {
-            const tomorrow = moment().add(1, 'days')
-            localStorage.setItem('countdown', (Date.now() + 86400000))
-            localStorage.setItem('dueTime', tomorrow.locale('id').format('LLLL'))
+            const msg = await addCheckout(data)
             localStorage.setItem('bank', bank)
-            navigate(`/instruksi-pembayaran/${cookies.id}/${id_kelas}`)
+            toast.success(msg)
+            navigate(`/user/transaksi/${cookies.id}`)
         }
         document.body.classList.toggle('fixBody')
     }
