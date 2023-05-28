@@ -8,7 +8,6 @@ const AddKelas = () => {
     const navigate = useNavigate()
     const {id_mentor: idMentor} = useParams()
     const [addValue, setAddValue] = useState({idMentor, namaKelas: '', tentangKelas: '', introductionKelas: '', kategoriKelas: '', materiKelas: '', hargaCoretKelas: 0, hargaAsliKelas: 0})
-    // const {namaKelas, tentangKelas, kategoriKelas, materiKelas, hargaCoretKelas, hargaAsliKelas} = addValue
 
     const handleChange = e => {
         setAddValue(preVal => {
