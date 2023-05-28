@@ -7,7 +7,6 @@ import bca from '../asset/images/bca.png';
 import bni from '../asset/images/bni.png';
 import CaraBayar from "./CaraBayar";
 import { useParams } from "react-router-dom";
-import { getCourse } from "../controller/getCourse";
 import { getCourseId } from "../controller/getCourseId";
 import { getUserCheckout } from "../controller/getUserCheckout";
 
