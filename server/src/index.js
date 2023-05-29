@@ -42,20 +42,6 @@ app.get("/course/:idCourse", async (req, res) => {
   }
 })
 
-app.get("/course/:idUser", async (req, res)=>{
-  try {
-    const data = await myCourseCollection.findOne({ _id: req.params.idUser })
-    if (!data) {
-      res.status(404).json({ success: false, message: "data empty" })
-      return
-    }
-    res.json({ data })
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: "Internal Server Error" })
-  }
-})
-
 app.get("/mentor", (req, res)=>{
   try {
     mentorCollection.find().then(data => {
@@ -138,6 +124,7 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+
   app.post("/login/mentor", async (req, res) => {
     try {
       const data = await authCollection.findOne({ email: req.body.email })  
@@ -156,6 +143,58 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+
+  app.put("/edit/user/:idUser", async (req, res) => {
+    const data = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      role: "user"
+    }
+  
+    try {
+      const result = await authCollection.findOneAndUpdate({ _id: req.params.idUser }, data)
+      console.log(result)
+      res.json({ success: true, message: "Profile Updated!" })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+  })  
+
+  app.put("/edit/user/:idMentor", async (req, res) => {
+    const data = {
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      role: "mentor"
+    }
+  
+    try {
+      const result = await authCollection.findOneAndUpdate({ _id: req.params.idMentor }, data)
+      console.log(result)
+      res.json({ success: true, message: "Profile Updated!" })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+  })  
+
+
+  app.delete("/deleteCourse/:idCourse", async (req, res) =>{
+    const idCourse = req.params.idCourse
+
+    try {
+      const result = await CourseCollection.findOneAndRemove({_id: idCourse})
+      console.log(result)
+      res.json({success: true, message:"Course Deleted!"})
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ success: false, message: "Internal Server Error"})
+    }
+  })
+
+
 
   app.post("/addCourse/:idMentor", async (req, res) => {
     const data = {
@@ -213,27 +252,11 @@ app.post("/signup", async (req, res) => {
     }
   })
 
-  app.post("/addMentor", async (req, res) => {
-    const data = {
-      namaMentor: req.body.namaMentor,
-      jabatanMentor: req.body.jabatanMentor,
-    }
-    
-    try {
-      const result = await mentorCollection.insertMany(data)
-      console.log(result)
-      res.json({ success: true, message: "add mentor successful", id: data._id})
-    } catch (error) {
-      console.error(error)
-      res.status(500).json({ success: false, message: "Internal Server Error" })
-    }
-  })
-
   app.post('/checkout', async (req, res) => {
     const data = {
       idKelasCheckout:req.body.idKelasCheckout,
       idUserCheckout:req.body.idUserCheckout,
-      timestamp:req.body.timestamp,
+      timestamp: Date.now(),
       deadline:req.body.deadline,
       buktiBayar:req.body.buktiBayar,
       idMentor:req.body.idMentor,
@@ -263,6 +286,7 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+
   app.get("/checkout/:idUserCheckout", async (req, res) => {
     try {
       const data = await CheckoutCollection.find({ idUserCheckout: req.params.idUserCheckout })
@@ -283,24 +307,49 @@ app.post("/signup", async (req, res) => {
       const update = { isPurchased: true }
       const options = { new: true }
   
-      const data = await CheckoutCollection.findOneAndUpdate(query, update, options)
+      const checkoutData = await CheckoutCollection.findOneAndUpdate(query, update, options)
   
-      if (!data) {
+      if (!checkoutData) {
         res.status(404).json({ success: false, message: "Data not found" })
         return
       }
   
-      res.json({ success: true, message: "Checkout updated successfully", data })
+      if (checkoutData.isPurchased) {
+        const courseData = {
+          idUser: checkoutData.idUserCheckout,
+          idKelas: checkoutData.idKelasCheckout,
+          isPurchased: checkoutData.isPurchased,
+          status: "Progress"
+        }
+  
+        const result = await myCourseCollection.insertMany(courseData)
+        console.log(result)
+      }
+  
+      res.json({ success: true, message: "Checkout updated successfully", data: checkoutData })
+  
     } catch (error) {
       console.error(error);
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
   
+  app.get("/mycourse/:idUser", async (req, res) => {
+    try {
+      const data = await myCourseCollection.find({ idUser: req.params.idUser })
   
-
-
+      if (data.length === 0) {
+        res.status(404).json({ success: false, message: "Data not" })
+        return
+      }
   
+      res.json({ data })
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+  })
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000")
