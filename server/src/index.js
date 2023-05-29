@@ -37,7 +37,7 @@ app.get("/course/:idCourse", async (req, res) => {
     }
     res.json({ data })
   } catch (error) {
-    console.error(error);
+    console.error(error)
     res.status(500).json({ success: false, message: "Internal Server Error" })
   }
 })
@@ -63,7 +63,7 @@ app.get("/mentor/:idMentor", async (req, res) => {
     }
     res.json({ data })
   } catch (error) {
-    console.error(error);
+    console.error(error)
     res.status(500).json({ success: false, message: "Internal Server Error" })
   }
 })
@@ -260,7 +260,7 @@ app.post("/signup", async (req, res) => {
       deadline:req.body.deadline,
       buktiBayar:req.body.buktiBayar,
       idMentor:req.body.idMentor,
-      isPurchased:req.body.isPurchased
+      isPurchased: false
     }
 
     try {
@@ -273,7 +273,7 @@ app.post("/signup", async (req, res) => {
     }
   })
 
-  app.get("/checkout/admin/:idMentor", async (req, res) => {
+  app.get("/checkout/mentor/:idMentor", async (req, res) => {
     try {
       const data = await CheckoutCollection.find({ idMentor: req.params.idMentor })
       if (!data) {
@@ -282,7 +282,7 @@ app.post("/signup", async (req, res) => {
       }
       res.json({ data })
     } catch (error) {
-      console.error(error);
+      console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
@@ -296,12 +296,12 @@ app.post("/signup", async (req, res) => {
       }
       res.json({ data })
     } catch (error) {
-      console.error(error);
+      console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
   
-  app.post("/checkout/admin/:idMentor/:idCheckout", async (req, res) => {
+  app.post("/checkout/mentor/:idMentor/:idCheckout", async (req, res) => {
     try {
       const query = { idMentor: req.params.idMentor, _id: req.params.idCheckout }
       const update = { isPurchased: true }
@@ -319,6 +319,8 @@ app.post("/signup", async (req, res) => {
           idUser: checkoutData.idUserCheckout,
           idKelas: checkoutData.idKelasCheckout,
           isPurchased: checkoutData.isPurchased,
+          feedbackRating: 0,
+          feedbackComment: " ",
           status: "Progress"
         }
   
@@ -329,7 +331,7 @@ app.post("/signup", async (req, res) => {
       res.json({ success: true, message: "Checkout updated successfully", data: checkoutData })
   
     } catch (error) {
-      console.error(error);
+      console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
@@ -346,10 +348,34 @@ app.post("/signup", async (req, res) => {
       res.json({ data })
   
     } catch (error) {
-      console.error(error);
+      console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+
+  app.put("/mycourse/feedback/:idMyCourse", async (req, res) => {
+    const idMyCourse = req.params.idMyCourse
+    const { feedbackRating, feedbackComment } = req.body
+  
+    try {
+      const updatedCourse = await myCourseCollection.findByIdAndUpdate(
+        idMyCourse,
+        { $set: { feedbackRating, feedbackComment, status: "finished" } },
+        { new: true }
+      )
+  
+      if (updatedCourse) {
+        res.json({ success: true, message: "Feedback updated!", course: updatedCourse })
+      } else {
+        res.status(404).json({ success: false, message: "Course not found" })
+      }
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+  })
+  
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000")
