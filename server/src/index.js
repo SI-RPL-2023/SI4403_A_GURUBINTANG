@@ -95,15 +95,30 @@ app.post("/signup", async (req, res) => {
     }
   
     try {
-      const result = await authCollection.insertMany(data)
-      console.log(result)
-      res.json({ success: true, message: "Signup successful", id: data._id, email: data.email, role: data.role})
+      const authResult = await authCollection.insertMany(data)
+      const mentorID = await authCollection.findOne({}, { sort: { _id: -1 } })
+      const mentorData = {
+        idMentor: mentorID._id,
+        namaMentor: data.username,
+        jumlahKelas: 0
+      }
+  
+      const mentorResult = await mentorCollection.insertMany(mentorData)
+  
+      console.log(authResult)
+      console.log(mentorResult)
+  
+      res.json({
+        success: true,
+        message: "Signup successful",
+        email: data.email,
+        role: data.role
+      })
     } catch (error) {
       console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
-  
   
   app.post("/login", async (req, res) => {
     try {
@@ -180,22 +195,6 @@ app.post("/signup", async (req, res) => {
     }
   })  
 
-
-  app.delete("/deleteCourse/:idCourse", async (req, res) =>{
-    const idCourse = req.params.idCourse
-
-    try {
-      const result = await CourseCollection.findOneAndRemove({_id: idCourse})
-      console.log(result)
-      res.json({success: true, message:"Course Deleted!"})
-    } catch (error) {
-      console.error(error)
-      res.status(500).json({ success: false, message: "Internal Server Error"})
-    }
-  })
-
-
-
   app.post("/addCourse/:idMentor", async (req, res) => {
     const data = {
       namaKelas: req.body.namaKelas,
@@ -203,20 +202,52 @@ app.post("/signup", async (req, res) => {
       introductionKelas: req.body.introductionKelas,
       kategoriKelas: req.body.kategoriKelas,
       materiKelas: req.body.materiKelas,
-      hargaCoretKelas:req.body.hargaCoretKelas,
-      hargaAsliKelas:req.body.hargaAsliKelas,
+      hargaCoretKelas: req.body.hargaCoretKelas,
+      hargaAsliKelas: req.body.hargaAsliKelas,
       idMentor: req.params.idMentor
     }
   
     try {
-      const result = await CourseCollection.insertMany(data)
+      const result = await CourseCollection.insertMany(data);
+      console.log(result);
+      const mentor = await mentorCollection.findOne({ idMentor: req.params.idMentor });
+    
+      if (!mentor) {
+        return res.status(404).json({ success: false, message: "Mentor not found" });
+      }
+    
+      mentor.jumlahKelas += 1;
+      await mentor.save();
+    
+      res.json({ success: true, message: `Insert ${data.namaKelas} class successful`, id: data._id });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+    
+  })
+  
+  app.delete("/deleteCourse/:idMentor/:idCourse", async (req, res) =>{
+    const idCourse = req.params.idCourse
+    try {
+      const result = await CourseCollection.findOneAndRemove({_id: idCourse})
       console.log(result)
-      res.json({ success: true, message: "insert "+data.namaKelas+" class successful", id: data._id })
+      const mentor = await mentorCollection.findOne({ idMentor: req.params.idMentor });
+    
+      if (!mentor) {
+        return res.status(404).json({ success: false, message: "Mentor not found" });
+      }
+    
+      mentor.jumlahKelas -= 1;
+      await mentor.save();
+    
+      res.json({ success: true, message: `delete class successful`, id: data._id });
     } catch (error) {
       console.error(error)
-      res.status(500).json({ success: false, message: "Internal Server Error" })
+      res.status(500).json({ success: false, message: "Internal Server Error"})
     }
-  }) 
+  })
+
   app.put("/editCourse/:idMentor", async (req, res) =>{
     const idKelas = req.body.idKelas
     const data = {
@@ -235,18 +266,6 @@ app.post("/signup", async (req, res) => {
       console.log(result)
       res.json({success: true, message:"Course "+data.namaKelas+" Updated!"})
     } catch(error) {
-      console.error(error)
-      res.status(500).json({ success: false, message: "Internal Server Error"})
-    }
-  })
-  app.delete("/deleteCourse/:idCourse", async (req, res) =>{
-    const idCourse = req.params.idCourse
-
-    try {
-      const result = await CourseCollection.findOneAndRemove({_id: idCourse})
-      console.log(result)
-      res.json({success: true, message:"Course Deleted!"})
-    } catch (error) {
       console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error"})
     }

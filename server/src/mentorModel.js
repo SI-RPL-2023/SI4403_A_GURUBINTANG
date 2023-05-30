@@ -9,20 +9,16 @@ mongoose.connect("mongodb://127.0.0.1:27017/GuruBintang")
 })
 
 const MentorSchema = new mongoose.Schema({
+    idMentor:{
+        type:String,
+        required:true
+    },
     namaMentor:{
         type:String,
         required:true
     },
-    descMentor:{
-        type:String,
-        required:true
-    },
-    muridMentor:{
+    jumlahKelas:{
         type:Number,
-        required:true
-    },
-    keahlianMentor:{
-        type:String,
         required:true
     }
 })
