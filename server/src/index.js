@@ -204,25 +204,27 @@ app.post("/signup", async (req, res) => {
       materiKelas: req.body.materiKelas,
       hargaCoretKelas: req.body.hargaCoretKelas,
       hargaAsliKelas: req.body.hargaAsliKelas,
-      idMentor: req.params.idMentor
+      idMentor: req.params.idMentor,
+      feedbackRating: [],
+      feedbackComment:[]
     }
   
     try {
-      const result = await CourseCollection.insertMany(data);
-      console.log(result);
-      const mentor = await mentorCollection.findOne({ idMentor: req.params.idMentor });
+      const result = await CourseCollection.insertMany(data)
+      console.log(result)
+      const mentor = await mentorCollection.findOne({ idMentor: req.params.idMentor })
     
       if (!mentor) {
-        return res.status(404).json({ success: false, message: "Mentor not found" });
+        return res.status(404).json({ success: false, message: "Mentor not found" })
       }
     
-      mentor.jumlahKelas += 1;
-      await mentor.save();
+      mentor.jumlahKelas += 1
+      await mentor.save()
     
-      res.json({ success: true, message: `Insert ${data.namaKelas} class successful`, id: data._id });
+      res.json({ success: true, message: `Insert ${data.namaKelas} class successful`, id: data._id })
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, message: "Internal Server Error" });
+      console.error(error)
+      res.status(500).json({ success: false, message: "Internal Server Error" })
     }
     
   })
@@ -232,16 +234,16 @@ app.post("/signup", async (req, res) => {
     try {
       const result = await CourseCollection.findOneAndRemove({_id: idCourse})
       console.log(result)
-      const mentor = await mentorCollection.findOne({ idMentor: req.params.idMentor });
+      const mentor = await mentorCollection.findOne({ idMentor: req.params.idMentor })
     
       if (!mentor) {
-        return res.status(404).json({ success: false, message: "Mentor not found" });
+        return res.status(404).json({ success: false, message: "Mentor not found" })
       }
     
-      mentor.jumlahKelas -= 1;
-      await mentor.save();
+      mentor.jumlahKelas -= 1
+      await mentor.save()
     
-      res.json({ success: true, message: `delete class successful`, id: data._id });
+      res.json({ success: true, message: `delete class successful`, id: data._id })
     } catch (error) {
       console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error"})
@@ -325,6 +327,10 @@ app.post("/signup", async (req, res) => {
       const query = { idMentor: req.params.idMentor, _id: req.params.idCheckout }
       const update = { isPurchased: true }
       const options = { new: true }
+      const data = {
+        feedbackRating: 0,
+        feedbackComment: " ",
+      }
   
       const checkoutData = await CheckoutCollection.findOneAndUpdate(query, update, options)
   
@@ -338,9 +344,8 @@ app.post("/signup", async (req, res) => {
           idUser: checkoutData.idUserCheckout,
           idKelas: checkoutData.idKelasCheckout,
           isPurchased: checkoutData.isPurchased,
-          feedbackRating: 0,
-          feedbackComment: " ",
-          status: "Progress"
+          
+          status: 0
         }
   
         const result = await myCourseCollection.insertMany(courseData)
@@ -372,14 +377,14 @@ app.post("/signup", async (req, res) => {
     }
   })
 
-  app.put("/mycourse/feedback/:idMyCourse", async (req, res) => {
-    const idMyCourse = req.params.idMyCourse
+  app.post("/mycourse/feedback/:idCourse", async (req, res) => {
+    const idCourse = req.params.idCourse
     const { feedbackRating, feedbackComment } = req.body
   
     try {
-      const updatedCourse = await myCourseCollection.findByIdAndUpdate(
-        idMyCourse,
-        { $set: { feedbackRating, feedbackComment, status: "finished" } },
+      const updatedCourse = await CourseCollection.findByIdAndUpdate(
+        idCourse,
+        { $set: { feedbackRating: feedbackRating, feedbackComment: feedbackComment, status: 1 } },
         { new: true }
       )
   
@@ -393,6 +398,7 @@ app.post("/signup", async (req, res) => {
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+  
   
 
 

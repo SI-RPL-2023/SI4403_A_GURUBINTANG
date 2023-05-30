@@ -22,15 +22,7 @@ const userCourseSchema = new mongoose.Schema({
         required:true
     },
     status:{
-        type:String,
-        required:true
-    },
-    feedbackRating:{
         type:Number,
-        required:true
-    },
-    feedbackComment:{
-        type:String,
         required:true
     }
 

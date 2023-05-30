@@ -40,6 +40,14 @@ const CourseSchema = new mongoose.Schema({
     idMentor:{
         type:String,
         required:true
+    },
+    feedbackRating:{
+        type:Array,
+        required:true
+    },
+    feedbackComment:{
+        type:Array,
+        required:true
     }
 
 })
