@@ -1,5 +1,5 @@
-const deleteCourse = (id_course)=> {
-    return fetch(`http://localhost:3000/deleteCourse/${id_course}`, {
+const deleteCourse = (id_mentor, id_course)=> {
+    return fetch(`http://localhost:3000/deleteCourse/${id_mentor}/${id_course}`, {
             method: 'DELETE'
         })
         .then(response => {
