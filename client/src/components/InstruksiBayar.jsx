@@ -111,7 +111,7 @@ const InstruksiBayar = () => {
                         <input type="file" name="bukti_bayar" id="bukti_bayar" accept="image/png, image/jpg, image/jpeg" required/>
                     </div>
                     <button className="instruksi__buktibayar-cta">Upload</button>        
-                    <a href="" className="instruksi__cta">Lihat Riwayat Transaksi</a>
+                    <a href={`/user/transaksi/${id_user}`} className="instruksi__cta">Lihat Riwayat Transaksi</a>
                 </form>
             </div>
         </div>
