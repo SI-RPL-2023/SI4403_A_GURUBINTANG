@@ -43,11 +43,11 @@ const CourseSchema = new mongoose.Schema({
     },
     feedbackRating:{
         type:Array,
-        required:true
+        required:false
     },
     feedbackComment:{
         type:Array,
-        required:true
+        required:false
     }
 
 })
