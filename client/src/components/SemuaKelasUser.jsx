@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ListKelas from "./ListKelas";
 import back from '../asset/icon/back.svg';
-import { listDashboardKelas } from "../data";
 import { getCourseUser } from "../controller/getCourseUser";
 import { useParams } from "react-router-dom";
+import { getCourse } from "../controller/getCourse";
 
 const SemuaKelasUser = ({cookies}) => {
     const {id_user} = useParams()
@@ -12,31 +12,38 @@ const SemuaKelasUser = ({cookies}) => {
     const [kelasProgress, setKelasProgress] = useState([])
     const [kelasSelesai, setKelasSelesai] = useState([])
     const [isChecked, setChecked] = useState(true)
-    const [notFoundState, setNotFoundState] = useState('')
+    const [notFoundState, setNotFoundState] = useState('progress')
 
     
     const handleChange = e => {
         setChecked(false)
-        if(e.target.value === 'progress') {
-            setFilteredKelas(kelasProgress)
-            setNotFoundState(e.target.value)
-        } else {
+        const status = +e.target.value
+        if(status === 1) {
             setFilteredKelas(kelasSelesai)
-            setNotFoundState(e.target.value)
+            setNotFoundState('progress')
+        } else {
+            setFilteredKelas(kelasProgress)
+            setNotFoundState('selesai')
         }
     }
 
+    const getDetailKelas = selectedId => {
+        return dataKelas.find(item => item._id === selectedId)
+    }
+
     const fetchUserCourses = async () => {
+        const allCourse = await getCourse()
         const data = await getCourseUser(id_user)
+        const dataProgres = data.filter(item => item.status === 0)
+        const dataSelesai = data.filter(item => item.status === 1)
+        setDataKelas(allCourse)
+        setKelasProgress(dataProgres)
+        setKelasSelesai(dataSelesai)
+        setFilteredKelas(dataProgres)
     }
 
     useEffect(() => {
-        setNotFoundState('progress')
-        const progress = listDashboardKelas.filter(item => item.state === 'progress')
-        const selesai = listDashboardKelas.filter(item => item.state === 'selesai')
-        setKelasProgress(progress)
-        setKelasSelesai(selesai)
-        setFilteredKelas(progress)
+        fetchUserCourses()
     }, [])
 
     return(
@@ -45,17 +52,17 @@ const SemuaKelasUser = ({cookies}) => {
                 <a className="allkelas__back" href="/"><img src={back} alt="" /> kembali</a>
                 <div className="allkelas__tab-box">
                     <div className="tab-group">
-                        <input type="radio" id='progress' name='tab' value='progress' onChange={handleChange} hidden />
+                        <input type="radio" id='progress' name='tab' value='0' onChange={handleChange} hidden />
                         <label className={`allkelas__tab ${isChecked && 'allkelas-checked'}`} htmlFor="progress">Sedang Berlangsung</label>                        
                     </div>
                     <div className="tab-group">
-                        <input type="radio" id='selesai' name='tab' value='selesai' onChange={handleChange} hidden />
+                        <input type="radio" id='selesai' name='tab' value='1' onChange={handleChange} hidden />
                         <label className="allkelas__tab" htmlFor="selesai">Kelas Selesai</label>
                     </div>
                 </div>
             </div>
             <div className="allkelas__box">
-                <ListKelas arrKelas={filteredKelas} notFoundState={notFoundState} cookies={cookies} />
+                <ListKelas arrKelas={filteredKelas} getDetailKelas={getDetailKelas} notFoundState={notFoundState} id_user={id_user} />
             </div>
         </div>
     )

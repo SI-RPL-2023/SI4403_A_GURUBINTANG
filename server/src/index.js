@@ -177,7 +177,7 @@ app.post("/signup", async (req, res) => {
     }
   })  
 
-  app.put("/edit/user/:idMentor", async (req, res) => {
+  app.put("/edit/mentor/:idMentor", async (req, res) => {
     const data = {
       username: req.body.username,
       email: req.body.email,
@@ -277,11 +277,11 @@ app.post("/signup", async (req, res) => {
     const data = {
       idKelasCheckout:req.body.idKelasCheckout,
       idUserCheckout:req.body.idUserCheckout,
-      timestamp: Date.now(),
+      timestamp: req.body.timestamp,
       deadline:req.body.deadline,
       buktiBayar:req.body.buktiBayar,
       idMentor:req.body.idMentor,
-      isPurchased: false
+      isPurchased: req.body.isPurchased
     }
 
     try {
