@@ -159,6 +159,39 @@ app.post("/signup", async (req, res) => {
     }
   })
 
+app.get("/profile/user/:idUser", async (req, res) => {
+  const idUser = req.params.idUser
+
+  try {
+    const userProfile = await authCollection.findOne({ _id: idUser, role: "user" })
+    if (userProfile) {
+      res.json({ success: true, profile: userProfile })
+    } else {
+      res.status(404).json({ success: false, message: "User profile not found" })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ success: false, message: "Internal Server Error" })
+  }
+})
+
+app.get("/profile/mentor/:idMentor", async (req, res) => {
+  const idMentor = req.params.idMentor
+
+  try {
+    const mentorProfile = await authCollection.findOne({ _id: idMentor, role: "mentor" })
+    if (mentorProfile) {
+      res.json({ success: true, profile: mentorProfile })
+    } else {
+      res.status(404).json({ success: false, message: "Mentor profile not found" })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ success: false, message: "Internal Server Error" })
+  }
+})
+
+
   app.put("/edit/user/:idUser", async (req, res) => {
     const data = {
       username: req.body.username,
@@ -274,25 +307,50 @@ app.post("/signup", async (req, res) => {
   })
 
   app.post('/checkout', async (req, res) => {
-    const data = {
-      idKelasCheckout:req.body.idKelasCheckout,
-      idUserCheckout:req.body.idUserCheckout,
-      timestamp: Date.now(),
-      deadline:req.body.deadline,
-      buktiBayar:req.body.buktiBayar,
-      idMentor:req.body.idMentor,
-      isPurchased: false
-    }
-
+    const idKelasCheckout = req.body.idKelasCheckout
+    const idUserCheckout = req.body.idUserCheckout
+    const timestamp = Date.now()
+    const deadline = req.body.deadline
+    const buktiBayar = req.body.buktiBayar
+    const idMentor = req.body.idMentor
+  
     try {
-      const result = await CheckoutCollection.insertMany(data)
-      console.log(result)
-      res.json({ success: true, message: "checkout succesfull"})
+      const course = await CourseCollection.findById(idKelasCheckout)
+  
+      if (course && course.hargaAsliKelas === 0) {
+        const data = {
+          idKelas: idKelasCheckout,
+          idUser: idUserCheckout,
+          isPurchased: true,
+          status: 0
+        }
+  
+        const result = await myCourseCollection.insertMany(data)
+        console.log(result)
+        res.json({ success: true, message: "checkout successful" })
+      } else {
+        const data = {
+          idKelasCheckout,
+          idUserCheckout,
+          timestamp,
+          deadline,
+          buktiBayar,
+          idMentor,
+          isPurchased: false
+        }
+  
+        const result = await CheckoutCollection.insertMany(data)
+        console.log(result)
+        res.json({ success: true, message: "checkout successful" })
+      }
     } catch (error) {
       console.error(error)
       res.status(500).json({ success: false, message: "Internal Server Error" })
     }
   })
+  
+  
+  
 
   app.get("/checkout/mentor/:idMentor", async (req, res) => {
     try {
@@ -327,10 +385,6 @@ app.post("/signup", async (req, res) => {
       const query = { idMentor: req.params.idMentor, _id: req.params.idCheckout }
       const update = { isPurchased: true }
       const options = { new: true }
-      const data = {
-        feedbackRating: 0,
-        feedbackComment: " ",
-      }
   
       const checkoutData = await CheckoutCollection.findOneAndUpdate(query, update, options)
   
@@ -384,8 +438,12 @@ app.post("/signup", async (req, res) => {
     try {
       const updatedCourse = await CourseCollection.findByIdAndUpdate(
         idCourse,
-        { $set: { feedbackRating: feedbackRating, feedbackComment: feedbackComment, status: 1 } },
+        { $push: { feedbackRating: feedbackRating, feedbackComment: feedbackComment } },
         { new: true }
+      )
+      const statusCourse = await myCourseCollection.findOneAndUpdate(
+        { idKelas: req.params.idCourse },
+        { $set: {status: 1}}
       )
   
       if (updatedCourse) {
