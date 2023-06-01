@@ -27,8 +27,8 @@ const CheckoutSchema = new mongoose.Schema({
         required:true
     },
     buktiBayar:{
-        data:Buffer,
-        contentType: String
+        type: String,
+        required: true
     },
     idMentor:{
         type:String,
