@@ -334,7 +334,7 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
     const idUserCheckout = req.body.idUserCheckout
     const timestamp = Date.now()
     const deadline = req.body.deadline
-    const buktiBayar = req.file.path
+    const buktiBayar = ""
     const idMentor = req.body.idMentor
 
     try {
@@ -355,11 +355,11 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
           deadline,
           buktiBayar: buktiBayar,
           idMentor,
-          isPurchased: false
+          isPurchased: true
         }
         
-        const result = await CheckoutCollection.insertMany(data2)
-        const result2 = await myCourseCollection.insertMany(data)
+        const result = await myCourseCollection.insertMany(data)
+        const result2 = await CheckoutCollection.insertMany(data2)
         console.log(result)
         console.log(result2)
         res.json({ success: true, message: "checkout successful" })
@@ -384,6 +384,22 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
     }
   })
   
+  app.put('/checkout/buktibayar/idCheckout', async (req, res) => {
+    const idCheckout = req.params.idCheckout
+    const buktiBayar = req.file.path
+  
+    try {
+      const result = await CheckoutCollection.findById(
+        { idCheckout },
+        { $set: { buktiBayar } }
+      )
+      console.log(result)
+      res.json({ success: true, message: "Payment proof updated successfully" })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ success: false, message: "Internal Server Error" })
+    }
+  })
   
   
 
