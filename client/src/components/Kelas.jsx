@@ -5,7 +5,6 @@ import { useState } from "react";
 import { getCourse } from "../controller/getCourse";
 
 const Kelas = () => {
-    // const [isLoad, setLoad] = useState(true)
     const [course, setCourse] = useState([])
     const [filteredCourse, setfilteredCourse] = useState([])
     const [search, setSearch] = useState('')

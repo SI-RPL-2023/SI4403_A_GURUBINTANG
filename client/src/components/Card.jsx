@@ -4,11 +4,6 @@ import bookmark from '../asset/icon/bookmark.svg'
 import kelas_1 from '../asset/images/kelas_1.png';
 
 const Card = ({listKelas, className}) => {
-    // const handleClick = (i) => {
-    //     const cards = [...document.querySelectorAll('.card__item')]
-    //     cards[i].classList.toggle('click')
-    // }
-
     return (
         <div className={`card ${className}`}>
             {listKelas.map(({_id, namaKelas, tentangKelas, kategoriKelas, materiKelas, totalMateriKelas, hargaCoretKelas, hargaAsliKelas, mentorKelas}, i) => {
