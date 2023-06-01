@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Card from "./Card";
 import Footer from "./Footer";
-import { listKelas } from "../data";
 import { useState } from "react";
 import { getCourse } from "../controller/getCourse";
 
