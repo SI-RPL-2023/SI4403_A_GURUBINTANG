@@ -8,8 +8,8 @@ const YTContent = url => {
     )
 }
 
-const FeedbackContent = (url) => {
-    return <Feedback />
+const FeedbackContent = (id_user, id_kelas) => {
+    return <Feedback id_user={id_user} id_kelas={id_kelas} />
 }
 
 const IntroContent = (namaKelas, filteredContent) => {
@@ -21,13 +21,13 @@ const IntroContent = (namaKelas, filteredContent) => {
     )
 }
 
-const MateriSlide = ({id_kelas, filteredContent, namaKelas}) => {
+const MateriSlide = ({id_user, id_kelas, filteredContent, namaKelas}) => {
 
     const checkContent = content => {
         if(content.includes('youtube')) {
             return YTContent(filteredContent)
         } else if(content.includes('feedback')) {
-            return FeedbackContent(`/feedback/${id_kelas}`)
+            return FeedbackContent(id_user, id_kelas)
         } else {
             return IntroContent(namaKelas, filteredContent)
         }

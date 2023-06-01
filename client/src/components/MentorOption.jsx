@@ -30,7 +30,7 @@ const MentorOption = ({isClicked, cookies, removeCookie}) => {
                 <a href={`/mentor/transaksi/${cookies.id}`} className="option__link"><img className="option__icon" src={receipt} alt="" /> Daftar Transaksi</a>
            </li>
            <li className="option__list">
-                <a href={`/mentor/pengaturan/${cookies.id}`} className="option__link"><img className="option__icon" src={setting} alt="" /> Pengaturan Akun</a>
+                <a href={`/mentor/setting/${cookies.id}`} className="option__link"><img className="option__icon" src={setting} alt="" /> Pengaturan Akun</a>
            </li>
            <li className="option__list" onClick={handleLogout}>
                 <a className="option__link"><img className="option__icon" src={logout} alt="" /> Logout</a>

@@ -20,14 +20,14 @@ const UserOption = ({isClicked, cookies, removeCookie}) => {
 
     return (
        <ul className={`option ${isClicked && 'option-clicked'}`}>
-           {/* <li className="option__list">
-                <a href="/dashboard" className="option__link"><img className="option__icon" src={dashboard} alt="" /> Dashboard</a>
-           </li> */}
            <li className="option__list">
                 <a href={`/user/kelas-saya/${cookies.id}`} className="option__link"><img className="option__icon" src={note} alt="" /> Kelas Saya</a>
            </li>
            <li className="option__list">
                 <a href={`/user/transaksi/${cookies.id}`} className="option__link"><img className="option__icon" src={receipt} alt="" />Riwayat Transaksi</a>
+           </li>
+           <li className="option__list">
+                <a href={`/user/sertifikat/${cookies.id}`} className="option__link"><img className="option__icon" src={dashboard} alt="" /> Sertifikat Saya</a>
            </li>
            <li className="option__list">
                 <a href={`/user/setting/${cookies.id}`} className="option__link"><img className="option__icon" src={setting} alt="" /> Pengaturan Akun</a>

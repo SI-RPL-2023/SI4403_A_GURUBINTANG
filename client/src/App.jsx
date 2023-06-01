@@ -15,7 +15,7 @@ import Register from "./components/Register";
 import Login from "./components/Login";
 import RegisterMentor from "./components/RegisterMentor";
 import LoginMentor from "./components/LoginMentor";
-// import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Dashboard";
 import SemuaKelasUser from "./components/SemuaKelasUser";
 // import SemuaSertifUser from "./components/SemuaSertifUser";
 import DaftarTransaksi from "./components/DaftarTransaksi";
@@ -32,6 +32,8 @@ import AddKelas from "./components/AddKelas";
 import EditKelas from "./components/EditKelas";
 import Materi from "./components/Materi";
 import DaftarTransaksiAdmin from "./components/DaftarTransaksiAdmin";
+import EditAccount from "./components/EditAccount";
+import SemuaSertifUser from "./components/SemuaSertifUser";
 
 const App = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['id', 'username', 'role']);
@@ -84,15 +86,16 @@ const App = () => {
           <Route path='checkout/:id_kelas' element={cookies.role === 'user' ? <Checkout cookies={cookies} /> : <Navigate to='/login' />} />
           <Route path='payment' >
             <Route path='success/:id_user/:id_kelas' element={cookies.id ? <SuccessPayment cookies={cookies} /> : <Login />} />
-            <Route path='waiting/:id_user/:id_kelas' element={cookies.id ? <WaitingPayment /> : <Login />} />
+            {/* <Route path='waiting/:id_user/:id_kelas' element={cookies.id ? <WaitingPayment /> : <Login />} /> */}
           </Route>
           <Route path='instruksi-pembayaran/:id_user/:id_kelas' element={<InstruksiBayar />} />
           <Route path='mentor' >
-            {/* <Route path='dashboard/:id_mentor' element={cookies.id ? <SuccessPayment /> : <Login />} /> */}
+            <Route path='dashboard/:id_mentor' element={cookies.id ? <Dashboard cookies={cookies} /> : <Navigate to='/login/mentor' />} />
             <Route path='kelas/:id_mentor' element={<KelasMentor />} />
             <Route path='transaksi/:id_mentor' element={<DaftarTransaksiAdmin cookies={cookies} />} />
             <Route path='kelas/add/:id_mentor' element={<AddKelas />} />
             <Route path='kelas/edit/:id_kelas/:id_mentor' element={<EditKelas cookies={cookies} />} />
+            <Route path='setting/:id' element={<EditAccount setCookie={setCookie} cookies={cookies} />} />
           </Route>
           <Route path='materi' >
             <Route path=':id_user/:id_kelas' element={cookies.role === 'user' ? <Materi /> : <Login />} />
@@ -100,7 +103,8 @@ const App = () => {
           <Route path='user' >
             <Route path='kelas-saya/:id_user' element={<SemuaKelasUser cookies={cookies} />} />
             <Route path='transaksi/:id_user' element={<DaftarTransaksi cookies={cookies} />} />
-            {/* <Route path='setting/:id_user' element={<Materi />} /> */}
+            <Route path='sertifikat/:id_user' element={<SemuaSertifUser cookies={cookies} />} />
+            <Route path='setting/:id' element={<EditAccount setCookie={setCookie} cookies={cookies} />} />
           </Route>
           {/* <Route path='feedback' >
             <Route path=':id_kelas' element={<Materi />} />

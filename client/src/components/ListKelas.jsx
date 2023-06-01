@@ -34,7 +34,7 @@ const ListKelas = ({arrKelas, getDetailKelas, id_user, notFoundState}) => {
                         <div className="item__bottom">
                             <div className="item__cta-box">
                                 {status === 1 && <a href={`/materi/${id_user}/${idKelas}`} className="item__cta-secondary">Review Materi</a>}                
-                                <a href={status === 1 ? '#' : `/materi/${id_user}/${idKelas}`} className="item__cta-primary">{status === 1 ? 'Lihat Sertifikat' : 'Mulai Belajar'}</a>
+                                <a href={status === 1 ? `/user/sertifikat/${id_user}` : `/materi/${id_user}/${idKelas}`} className="item__cta-primary">{status === 1 ? 'Lihat Sertifikat' : 'Mulai Belajar'}</a>
                             </div>
                         </div>
                     </div>

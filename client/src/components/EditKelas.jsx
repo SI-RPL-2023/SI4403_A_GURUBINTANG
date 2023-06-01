@@ -3,7 +3,6 @@ import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { toast } from "react-toastify"
 import { editCourse } from "../controller/editCourse"
-import { getCourse } from "../controller/getCourse"
 import { getCourseId } from "../controller/getCourseId"
 import FormKelas from "./FormKelas"
 

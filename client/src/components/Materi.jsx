@@ -64,7 +64,7 @@ const Materi = () => {
                         </div>
                     </div>
                     <div className="materi__content-box">
-                        <MateriSlide id_kelas={id_kelas} filteredContent={filteredContent} namaKelas={namaKelas}/>
+                        <MateriSlide id_user={id_user} id_kelas={id_kelas} filteredContent={filteredContent} namaKelas={namaKelas}/>
                         <h1 className="materi__content-title">{contentTitle}</h1>
                         <h2 className="materi__content-titleMentor">Mentor Kelas Ini</h2>
                         <div className="materi__mentor-box">

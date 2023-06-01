@@ -21,6 +21,10 @@ const KelasMentor = () => {
 
     return (
         <div className="kelas-mentor">
+            <div className="form-header">
+                <h1 className="form-title">Daftar Kelas</h1>
+                <p className="form-redirect">List kelas yang berhasil dipublish</p>
+            </div>
             <CardKelasMentor listKelas={courses} id_mentor={id_mentor} />
             <a href={`/mentor/kelas/add/${id_mentor}`} className="kelas-mentor__add">
                 <img src={plus} alt="" />
