@@ -347,9 +347,21 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
           isPurchased: true,
           status: 0
         }
-  
-        const result = await myCourseCollection.insertMany(data)
+
+        const data2 = {
+          idKelasCheckout,
+          idUserCheckout,
+          timestamp,
+          deadline,
+          buktiBayar: buktiBayar,
+          idMentor,
+          isPurchased: false
+        }
+        
+        const result = await CheckoutCollection.insertMany(data2)
+        const result2 = await myCourseCollection.insertMany(data)
         console.log(result)
+        console.log(result2)
         res.json({ success: true, message: "checkout successful" })
       } else {
         const data = {
