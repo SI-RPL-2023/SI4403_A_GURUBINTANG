@@ -784,6 +784,167 @@ body {
   height: 2.4rem;
 }
 
+.dashboard {
+  display: grid;
+  grid-template-columns: 60vw 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5rem;
+  padding: 5rem 8rem;
+}
+.dashboard__left {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5rem;
+  align-self: start;
+  position: sticky;
+  top: 3rem;
+}
+.dashboard__banner {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 3rem;
+  padding: 2rem 3rem;
+  background-color: #4161D0;
+  border-radius: 8px;
+  color: #fff;
+}
+.dashboard__greeting {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 1rem;
+}
+.dashboard__title {
+  text-transform: capitalize;
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+.dashboard__desc {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.dashboard__overview {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: min-content;
+  grid-gap: 2rem;
+}
+.dashboard__overview-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  justify-items: center;
+  align-content: center;
+  grid-gap: 1rem;
+  padding: 2rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.dashboard__overview-detail div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  gap: 1rem;
+  font-size: 2.6rem;
+  font-weight: 700;
+}
+.dashboard__overview-detail img {
+  width: 2.5rem;
+}
+.dashboard__overview-detail p {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.listKelas {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 4rem;
+}
+.listKelas__detail {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-auto-rows: min-content;
+  align-items: center;
+  justify-content: space-between;
+}
+.listKelas__detail div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  gap: 1rem;
+  color: #717375;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.listKelas__detail a {
+  text-decoration: none;
+  color: #4E74F9;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2rem 2.4rem;
+  transition: 0.1s ease;
+}
+.listKelas__detail a:hover {
+  text-decoration: underline;
+}
+.listKelas__card {
+  grid-template-columns: 1fr !important;
+}
+
+.sertifikat {
+  justify-self: center;
+  align-self: start;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  justify-items: center;
+  grid-gap: 2rem;
+}
+.sertifikat__title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  gap: 1rem;
+  color: #717375;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.sertifikat__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 2rem;
+  padding: 2rem;
+  background-color: #fff;
+  border: 1px solid #DFE4F7;
+  border-radius: 8px;
+  justify-items: center;
+}
+.sertifikat__cta {
+  text-decoration: none;
+  color: #4E74F9;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 1.2rem 2.4rem;
+  transition: 0.1s ease;
+}
+.sertifikat__cta:hover {
+  text-decoration: underline;
+}
+
 .item-kelas {
   display: grid;
   grid-template-columns: 1fr;
@@ -1011,6 +1172,91 @@ body {
   visibility: visible;
 }
 
+.allsertif {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5rem;
+  padding: 5rem 8rem;
+  min-height: 80vh;
+}
+.allsertif__box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: min-content;
+  grid-gap: 3rem;
+}
+.allsertif__item {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 1.5rem;
+  justify-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.allsertif__item img {
+  width: 20rem;
+}
+.allsertif__item h1 {
+  font-size: 1.4rem;
+}
+.allsertif__item a {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: #4E74F9;
+  padding: 1.2rem 2.4rem;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+.allsertif__item a:active {
+  transform: scale(0.96);
+}
+.allsertif__nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  align-items: center;
+}
+.allsertif__back, .allsertif__title {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.allsertif__back {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #3D3F40;
+  background-color: #ECEFFB;
+  border-radius: 8px;
+  justify-self: start;
+  transition: 0.1s ease;
+}
+.allsertif__back:active {
+  transform: scale(0.96);
+}
+.allsertif__title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  padding: 1rem 2rem 2.5rem;
+  color: #1D2E6C;
+  justify-self: center;
+  padding: 1rem 2rem;
+}
+
 .success-payment {
   min-height: 100vh;
   background-color: #273A7D;
@@ -1197,6 +1443,10 @@ body {
 
 .kelas-mentor {
   min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5rem;
   padding: 2rem 8rem;
 }
 .kelas-mentor__add {
@@ -1345,7 +1595,8 @@ body {
 }
 .item-transaksi__middle {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, max-content);
+  justify-content: space-between;
   grid-auto-rows: min-content;
   align-items: center;
   grid-gap: 2rem;
@@ -1367,6 +1618,14 @@ body {
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+.item-transaksi__middle .middle-detail--bukti {
+  display: flex;
+  align-items: center;
+  grid-gap: 1rem;
+}
+.item-transaksi__middle .middle-detail--bukti_img {
+  width: 4rem;
 }
 .item-transaksi__middle .middle-detail .middle-judul {
   font-size: 1.6rem;
@@ -2189,7 +2448,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: min-content;
-  grid-gap: 12rem;
+  grid-gap: 8rem;
   padding: 5rem 8rem;
 }
 .kelas__heading {
@@ -2214,6 +2473,48 @@ body {
   font-weight: 400;
   color: #5D5F60;
   text-align: center;
+}
+.kelas__form {
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  align-items: center;
+  grid-gap: 1rem;
+}
+.kelas__input {
+  border: 1.4px solid #E4E9EC;
+  outline: none;
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.kelas__input::placeholder {
+  color: #717375;
+  font-size: 1.4rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+}
+.kelas__search-cta {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: #4E74F9;
+  padding: 1.2rem 2.4rem;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.1s ease;
+  padding: 1.5rem 2.5rem;
+  background-color: #4E74F9;
+}
+.kelas__search-cta:active {
+  transform: scale(0.96);
 }
 
 .mentor {

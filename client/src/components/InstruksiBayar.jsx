@@ -9,18 +9,21 @@ import CaraBayar from "./CaraBayar";
 import { useParams } from "react-router-dom";
 import { getCourseId } from "../controller/getCourseId";
 import { getUserCheckout } from "../controller/getUserCheckout";
+import { uploadBuktiBayar } from "../controller/uploadBuktiBayar";
+import { toast } from "react-toastify";
 
 
 const InstruksiBayar = () => {
     const {id_user, id_kelas} = useParams()
+    const [buktiBayar, setBuktiBayar] = useState(new FormData())
     const [isCopied, setCopied] = useState(false)
     const [kelasBayar, setKelasBayar] = useState({namaKelas: '', hargaAsliKelas: ''})
-    const [checkoutDetail, setCheckoutDetail] = useState({timestamp: '', deadline: ''})
+    const [checkoutDetail, setCheckoutDetail] = useState({_id: '', deadline: ''})
     let logoBank = ''
     let metodeBayar = ''
     const bank = localStorage.getItem('bank')
     const {namaKelas, hargaAsliKelas} = kelasBayar
-    const {deadline} = checkoutDetail
+    const {_id, deadline} = checkoutDetail
 
     const handleLogoBank = (logo) => {
         if(bank.toLocaleLowerCase().includes('mandiri')) {
@@ -48,6 +51,20 @@ const InstruksiBayar = () => {
         setCheckoutDetail(data)
         localStorage.setItem('timestamp', data.timestamp)
     }
+
+    const handleChangeBukti = (e) => {
+        let tempFile = new FormData()
+        const path = e.target.files[0]
+        tempFile.append('buktiBayar', path)
+        setBuktiBayar(tempFile)
+    }
+
+    const handleSubmitBukti = async (e) => {
+        e.preventDefault()
+        const msg = await uploadBuktiBayar(_id, buktiBayar)
+        toast.success(msg)
+        setBuktiBayar(new FormData())
+    }
 
     useEffect(() => {
         fetchCheckoutUser()
@@ -106,11 +123,11 @@ const InstruksiBayar = () => {
             <CaraBayar metodeBayar={metodeBayar} />
             <div className="instruksi__buktibayar">
                 <h1>Upload Bukti Bayar</h1>
-                <form>
+                <form onSubmit={handleSubmitBukti}>
                     <div>
-                        <input type="file" name="bukti_bayar" id="bukti_bayar" accept="image/png, image/jpg, image/jpeg" required/>
+                        <input type="file" onChange={handleChangeBukti} name="bukti_bayar" id="bukti_bayar" accept="image/png, image/jpg, image/jpeg" required/>
                     </div>
-                    <button className="instruksi__buktibayar-cta">Upload</button>        
+                    <button type="submit" className="instruksi__buktibayar-cta">Upload</button>        
                     <a href={`/user/transaksi/${id_user}`} className="instruksi__cta">Lihat Riwayat Transaksi</a>
                 </form>
             </div>

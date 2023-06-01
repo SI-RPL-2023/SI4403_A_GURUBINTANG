@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { listTransaksi } from "../data";
 import itemError from '../asset/icon/item-error.svg';
 import thumbnail from '../asset/images/item-transaksi.png';
+import icon_success from '../asset/icon/icon_success.svg';
+import icon_waiting from '../asset/icon/icon_waiting.svg';
 import { useEffect } from "react";
 import { getCourse } from "../controller/getCourse";
 import { approveCheckout } from "../controller/approveCheckout";
@@ -34,6 +36,14 @@ const ListTransaksiAdmin = ({arrTransaksi, id_mentor}) => {
         // }
     }
 
+    const cekBuktiBayar = (bukti, isPurchased) => {
+        if(!bukti && isPurchased) {
+            return <img src={icon_success} alt="" className="middle-detail--bukti_img" />
+        } else if(bukti) {
+            return <img src={icon_success} alt="" className="middle-detail--bukti_img" />
+        }
+    }
+
     const getAllCourse = async () => {
         const data = await getCourse()
         setCourses(data)
@@ -52,7 +62,7 @@ const ListTransaksiAdmin = ({arrTransaksi, id_mentor}) => {
                 <p>Promosikan kelasmu lebih menarik lagi!</p>
             </div> :
             arrTransaksi.map((item, i) => {
-                const {_id, idKelasCheckout, idUserCheckout, deadline, idMentor, isPurchased} = item
+                const {_id, idKelasCheckout, idUserCheckout, buktiBayar, deadline, idMentor, isPurchased} = item
                 return (
                     <div className="item-transaksi" key={i}>
                         <div className="item-transaksi__top">
@@ -76,6 +86,10 @@ const ListTransaksiAdmin = ({arrTransaksi, id_mentor}) => {
                                     <h2 className="harga-coret">Rp{getDetailKelas(idKelasCheckout, 'hargaCoretKelas')}</h2>
                                     <h1 className="harga-produk">Rp{getDetailKelas(idKelasCheckout, 'hargaAsliKelas')}</h1>
                                 </div>
+                            </div>
+                            <div className="middle-detail middle-detail--bukti">
+                                <span>Bukti Bayar: </span>
+                                {buktiBayar || isPurchased ? <img src={icon_success} alt="" className="middle-detail--bukti_img" /> : <img src={icon_waiting} alt="" className="middle-detail--bukti_img" />}                               
                             </div>
                         </div>
                         <div className="item-transaksi__bottom">

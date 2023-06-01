@@ -75,7 +75,8 @@
 
     &__middle {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, max-content);
+        justify-content: space-between;
         grid-auto-rows: min-content;
         align-items: center;
         grid-gap: 2rem;
@@ -100,8 +101,14 @@
                 gap: 2rem;
             }
 
-            img {
+            &--bukti {
+                display: flex;
+                align-items: center;
+                grid-gap: 1rem;
+            }
 
+            &--bukti_img {
+                width: 4rem;
             }
 
             .middle-judul {

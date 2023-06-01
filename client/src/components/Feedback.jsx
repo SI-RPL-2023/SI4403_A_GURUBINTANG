@@ -3,8 +3,12 @@ import { Range } from 'react-range';
 import { useState } from "react";
 import BigSteps from "./SliderRange";
 import star from '../asset/icon/star.svg';
+import { addFeedback } from "../controller/addFeedback";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-const Feedback = () => {
+const Feedback = ({id_user, id_kelas}) => {
+    const navigate = useNavigate()
     const [values, setValues] = useState([1])
     const [totalStar, setTotalStar] = useState([star])
     const [ulasan, setUlasan] = useState('')
@@ -15,6 +19,20 @@ const Feedback = () => {
 
     const handleUlasan = e => {
         setUlasan(e.target.value)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const data = {
+            feedbackRating: values[0],
+            feedbackComment: ulasan
+        }
+        const msg = await addFeedback(id_kelas, data)
+        toast.success(msg)
+        setUlasan('')
+        setValues([1])
+        navigate(`/materi/${id_user}/${id_kelas}`)
+
     }
 
     const countStar = count => {
@@ -30,7 +48,7 @@ const Feedback = () => {
     }, [values])
     
     return (
-        <form className="slide__rating">
+        <form className="slide__rating" onSubmit={handleSubmit}>
             <h1 className="slide__title">Feedback Kelas dan Review</h1>
             <div className="slide__rating-box">
                 <h2>Beri rating kelas: </h2>

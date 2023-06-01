@@ -20,9 +20,7 @@ const Payment = ({id_kelas, idMentor, isPay, hargaAsliKelas, handlePaymentPopUp,
             idUserCheckout: cookies.id,
             timestamp: Date.now() + 86400000,
             deadline: tomorrow.locale('id').format('LLLL'),
-            buktiBayar: '',
-            idMentor: idMentor,
-            isPurchased: false
+            idMentor: idMentor
         }
 
         const dataGratis = {
@@ -30,9 +28,7 @@ const Payment = ({id_kelas, idMentor, isPay, hargaAsliKelas, handlePaymentPopUp,
             idUserCheckout: cookies.id,
             timestamp: Date.now(),
             deadline: moment().add(0, 'days').locale('id').format('LLLL'),
-            buktiBayar: '',
-            idMentor: idMentor,
-            isPurchased: true
+            idMentor: idMentor
         }
 
         if(hargaAsliKelas === 0) {
