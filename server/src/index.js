@@ -2,6 +2,8 @@ const express = require("express")
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const multer =  require('multer')
+const path = require('path')
 
 const authCollection = require("./authModel")
 const mentorCollection = require("./mentorModel")
@@ -9,9 +11,30 @@ const CourseCollection = require("./courseModel")
 const CheckoutCollection = require("./checkoutModel")
 const myCourseCollection = require("./userCourseModel")
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "server/images")
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().getTime() + '-' + file.originalname)
+  }
+})
+
+const fileFilter = (req, file, cb) => {
+  if ( file.mimetype === 'image/png' || 
+       file.mimetype === 'image/jpg' || 
+       file.mimetype === 'image/jpeg' ) {
+    cb(null, true)
+  } else {
+    cb(null, false)
+  }
+}
+
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use('/server/images', express.static(path.join(__dirname, 'server/images')))
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('buktiBayar'))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -311,7 +334,7 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
     const idUserCheckout = req.body.idUserCheckout
     const timestamp = Date.now()
     const deadline = req.body.deadline
-    const buktiBayar = req.body.buktiBayar
+    const buktiBayar = req.file.path
     const idMentor = req.body.idMentor
 
     try {
@@ -334,7 +357,7 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
           idUserCheckout,
           timestamp,
           deadline,
-          buktiBayar,
+          buktiBayar: buktiBayar,
           idMentor,
           isPurchased: false
         }
