@@ -1,5 +1,5 @@
 const getAllCheckoutAdmin = (id_mentor) => {
-    return fetch(`http://localhost:3000/checkout/admin/${id_mentor}`)
+    return fetch(`http://localhost:3000/checkout/mentor/${id_mentor}`)
         .then(response => {
             return response.json()
         })

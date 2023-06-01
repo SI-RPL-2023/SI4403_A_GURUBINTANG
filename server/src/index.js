@@ -233,7 +233,7 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
     }
   })  
 
-  app.put("/edit/user/:idMentor", async (req, res) => {
+  app.put("/edit/mentor/:idMentor", async (req, res) => {
     const data = {
       username: req.body.username,
       email: req.body.email,
@@ -336,7 +336,7 @@ app.get("/profile/mentor/:idMentor", async (req, res) => {
     const deadline = req.body.deadline
     const buktiBayar = req.file.path
     const idMentor = req.body.idMentor
-  
+
     try {
       const course = await CourseCollection.findById(idKelasCheckout)
   

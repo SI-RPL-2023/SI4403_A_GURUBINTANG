@@ -6,8 +6,8 @@ import { deleteCourse } from "../controller/deleteCourse";
 
 const CardKelasMentor = ({listKelas, className, id_mentor}) => {
 
-    const handleDelete = async (id) => {
-        await deleteCourse(id)
+    const handleDelete = async (idMentor, idCourse) => {
+        await deleteCourse(idMentor, idCourse)
     }
 
     return (
@@ -26,7 +26,7 @@ const CardKelasMentor = ({listKelas, className, id_mentor}) => {
                         </div>
                         <div className="card__border"></div>
                         <div className="card__cta-box card__cta-box--mentor">
-                            <button className="card__cta card__cta-delete" onClick={() => handleDelete(_id)}>Delete</button>
+                            <button className="card__cta card__cta-delete" onClick={() => handleDelete(id_mentor, _id)}>Delete</button>
                             <a href={`/mentor/kelas/edit/${_id}/${id_mentor}`} className="card__cta card__cta-edit">Edit</a>
                         </div>
                     </div>
